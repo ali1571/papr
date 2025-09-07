@@ -146,7 +146,7 @@ export default function HeroSection({
           {/* Right: badge ABOVE big quote (same row; this side is a column) */}
           <div className="flex flex-col items-center md:items-start">
             {/* glassy badge */}
-            <span className="mt-3 md:mt-0 inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-body text-xs md:text-sm tracking-wide bg-black/80 dark:bg-black/10 border border-black/10 dark:border-white/15 backdrop-blur-md shadow-md text-neutral-900 dark:text-white">
+            <span className="mt-3 md:mt-0 inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-body text-xs md:text-sm tracking-wide bg-white/80 dark:bg-white/10 border border-black/10 dark:border-white/15 backdrop-blur-md shadow-md text-neutral-900 dark:text-white">
               <i className="fa-regular fa-star"></i>
               Built for students, by students
             </span>
@@ -167,7 +167,7 @@ export default function HeroSection({
               <Dropdown placeholder="Subject" items={subjects} value={subject} onChange={handleSubjectChange} className="w-full sm:flex-1" />
               <Dropdown placeholder="Year" items={years.map(String)} value={year} onChange={handleYearChange} disabled={!subject} className="w-full sm:flex-1" />
             </div>
-            <button className="mt-4 w-full px-5 py-2 rounded-[10px] backdrop-blur-md border border-black dark:border-white text-black dark:text-white hover:bg-white/10 dark:hover:bg-black/15 transition disabled:opacity-50 duration-300 font-body cursor-pointer block" disabled={!subject || !year || loading} onClick={() => onFind?.(subject, year)}>
+            <button className="mt-4 w-full px-5 py-2 rounded-[10px] backdrop-blur-md border border-black dark:border-white text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/15 transition disabled:opacity-50 duration-300 font-body cursor-pointer block" disabled={!subject || !year || loading} onClick={() => onFind?.(subject, year)}>
               {loading ? <ButtonLoader /> : "Find Paper"}
             </button>
           </div>
