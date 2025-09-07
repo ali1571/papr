@@ -74,7 +74,7 @@ function SessionColumn({
     <div
       className="
     rounded-2xl p-5
-    border border-black/10 dark:border-white/15
+    border border-white/10 dark:border-black/15
     shadow-sm dark:shadow-[inset_0_1px_0_rgba(255,255,255,.06)]
   "
     >
