@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-      <div className="min-h-screen bg-black text-black white:bg-[#ffffff] dark:text-white flex items-start justify-center py-8">
+      <div className="min-h-screen bg-black text-black light:bg-[#ffffff] dark:text-white flex items-start justify-center py-8">
         <div className="app-frame">
           <div className="app-frame-scroll no-scrollbar">
             <div className="pt-6" />
