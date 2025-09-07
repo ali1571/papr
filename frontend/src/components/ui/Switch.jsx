@@ -13,7 +13,7 @@ const Switch = () => {
             localStorage.setItem('theme', 'dark');
         } else {
             html.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
+            localStorage.setItem('theme', 'dark');
         }
     }, [isDark]);
 
