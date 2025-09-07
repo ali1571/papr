@@ -19,6 +19,8 @@ export default function App() {
   const [picked, setPicked] = useState(null); // This will hold the selected paper details
 
   const paperDetailsRef = useRef(null);
+  const pdfViewerRef = useRef(null); // NEW: Add ref for PDF viewer section
+  
   const { data, isFetching, isError, refetch } = usePapers(subject, year, { enabled: hasSearched });
 
   // Custom handler to prefetch papers when year changes
@@ -30,11 +32,19 @@ export default function App() {
     setManualLoading(false);
   };
 
+  // Existing useEffect for auto-scroll when papers are found
   useEffect(() => {
     if (data && !isFetching && paperDetailsRef.current && hasSearched) {
       paperDetailsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [data, isFetching]);
+
+  // NEW: Auto-scroll when a variant is picked
+  useEffect(() => {
+    if (picked && pdfViewerRef.current) {
+      pdfViewerRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [picked]);
 
   return (
     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
@@ -55,17 +65,22 @@ export default function App() {
               <div className="mx-auto w-[95%] h-px my-10" style={{ backgroundColor: 'var(--divider)' }} />
 
               <div ref={paperDetailsRef}>
-                <PaperDetails data={hasSearched ? data : null} onPick={(selected) => setPicked(selected)} />
+                <PaperDetails 
+                  data={hasSearched ? data : null} 
+                  onPick={setPicked} 
+                />
               </div>
 
-              {isError && <div className="my-8"><ErrorPage /></div>}
+              {/* NEW: Wrap ViewSection with ref for auto-scroll */}
+              <div ref={pdfViewerRef}>
+                <ViewSection 
+                  qpUrl={picked?.links?.qp} 
+                  msUrl={picked?.links?.ms} 
+                />
+              </div>
 
-              <div className="mx-auto w-[95%] h-px my-10" style={{ backgroundColor: 'var(--divider)' }} />
-              <ViewSection qpUrl={picked?.links?.qp} msUrl={picked?.links?.ms} />
-              <div className="mx-auto w-[95%] h-px my-10" style={{ backgroundColor: 'var(--divider)' }} />
               <Footer />
             </main>
-            <div className="pb-10" />
           </div>
         </div>
       </div>
