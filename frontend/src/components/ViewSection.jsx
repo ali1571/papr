@@ -20,7 +20,7 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
                   href={qpUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 text-xs font-heading border border-black/20 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
+                  className="px-3 py-1 text-xs font-heading border border-black/20 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-white/5 dark:hover:bg-black/10 transition-colors duration-400"
                 >
                   Open in new tab ↗
                 </a>
@@ -48,7 +48,7 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
                   href={msUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 text-xs font-heading border border-black/20 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
+                  className="px-3 py-1 text-xs font-heading border border-black/20 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-white/5 dark:hover:bg-black/10 transition-colors duration-400"
                 >
                   Open in new tab ↗
                 </a>
