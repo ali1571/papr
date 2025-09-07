@@ -15,8 +15,8 @@ body,
   --divider: rgba(0, 0, 0, .10);
 }
 
-.light {
-  --app-surface: #ffffff;
+.dark {
+  --app-surface: #000000;
   /* dark sheet */
   --divider: rgba(255, 255, 255, .15);
 }
