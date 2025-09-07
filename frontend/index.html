@@ -27,7 +27,7 @@
     // 1) read saved theme OR system preference
     const saved = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved ?? (prefersDark ? 'dark' : 'light');
+    const theme = saved ?? (prefersDark ? 'dark' : 'dark');
 
     // 2) apply it to <html>
     if (theme === 'dark') document.documentElement.classList.add('dark');
