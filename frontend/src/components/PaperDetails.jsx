@@ -74,7 +74,7 @@ function SessionColumn({
     <div
       className="
     rounded-2xl p-5
-    border border-white/10 dark:border-black/15
+    border border-black/10 dark:border-white/15
     shadow-sm dark:shadow-[inset_0_1px_0_rgba(255,255,255,.06)]
   "
     >
@@ -106,7 +106,7 @@ function SessionColumn({
                   w-full text-left
                   border-black/15 dark:border-white/20
                   text-neutral-900 dark:text-white
-                  hover:bg-white/[.03] dark:hover:bg-black/[.08]
+                  hover:bg-black/[.03] dark:hover:bg-white/[.08]
                 "
               >
                 {`Paper ${it.paper.replace("P", "")} — Variant ${it.variant.replace("V", "")}`}
