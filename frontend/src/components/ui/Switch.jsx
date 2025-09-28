@@ -2,28 +2,28 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Switch = () => {
-    const [isDark, setIsDark] = useState(() =>
-        document.documentElement.classList.contains('dark')
+    const [isLight, setIsLight] = useState(() =>
+        document.documentElement.classList.contains('light')
     );
 
     useEffect(() => {
         const html = document.documentElement;
-        if (isDark) {
-            html.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            html.classList.remove('dark');
+        if (isLight) {
+            html.classList.add('light');
             localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.remove('light');
+            localStorage.setItem('theme', 'dark');
         }
-    }, [isDark]);
+    }, [isLight]);
 
     return (
         <StyledWrapper>
             <label className="switch">
                 <input
                     type="checkbox"
-                    checked={isDark}
-                    onChange={() => setIsDark(v => !v)}
+                    checked={isLight}
+                    onChange={() => setIsLight(v => !v)}
                 />
                 <span className="slider" />
             </label>

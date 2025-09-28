@@ -10,9 +10,9 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
           {/* QP box */}
-          <div className="rounded-2xl border border-black/10 dark:border-white/15 overflow-hidden">
-            <div className="px-4 py-3 border-b border-black/10 dark:border-white/10 flex items-center justify-between">
-              <div className="font-heading text-sm text-neutral-900 dark:text-white tracking-wide">
+          <div className="rounded-2xl border border-theme overflow-hidden">
+            <div className="px-4 py-3 border-b border-theme flex items-center justify-between">
+              <div className="font-heading text-sm text-theme tracking-wide">
                 Question Paper
               </div>
               {qpUrl && (
@@ -20,7 +20,7 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
                   href={qpUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 text-xs font-heading border border-black/20 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
+                  className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
                 >
                   Open in new tab ↗
                 </a>
@@ -38,9 +38,9 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
           </div>
 
           {/* MS box */}
-          <div className="rounded-2xl border border-black/10 dark:border-white/15 overflow-hidden">
-            <div className="px-4 py-3 border-b border-black/10 dark:border-white/10 flex items-center justify-between">
-              <div className="font-heading text-sm text-neutral-900 dark:text-white tracking-wide">
+          <div className="rounded-2xl border border-theme overflow-hidden">
+            <div className="px-4 py-3 border-b border-theme flex items-center justify-between">
+              <div className="font-heading text-sm text-theme tracking-wide">
                 Marking Scheme
               </div>
               {msUrl && (
@@ -48,7 +48,7 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
                   href={msUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 text-xs font-heading border border-black/20 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
+                  className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
                 >
                   Open in new tab ↗
                 </a>
@@ -80,4 +80,3 @@ function EmptySlot({ label }) {
     </div>
   );
 }
-

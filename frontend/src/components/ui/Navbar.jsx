@@ -33,8 +33,8 @@ export default function Navbar() {
     }, []);
 
     return (
-        <header className="relative z-40 w-full flex items-center py-3 bg-white text-black dark:bg-black dark:text-white transition-colors duration-300">
-            {/* Hamburger menu (only on small screens) */}
+        <header className="relative z-40 w-full flex items-center py-3 bg-theme text-theme md:border-b border-theme">          
+         {/* Hamburger menu (only on small screens) */}
             <div className="absolute right-4 top-1 z-50 md:hidden">
                 <TopDrawer />
             </div>
@@ -92,9 +92,7 @@ export default function Navbar() {
             >
                 <a
                     href="#"
-                    className="px-5 py-1 rounded-lg duration-500 
-                    text-black hover:bg-black hover:text-white 
-                    dark:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="px-5 py-1 rounded-lg duration-500 text-theme hover:bg-theme hover:text-theme"
                 >
                     Home
                 </a>
@@ -103,16 +101,13 @@ export default function Navbar() {
                 <button
                     ref={btnRef}
                     onClick={() => setOpen((p) => !p)}
-                    className="relative cursor-pointer px-4 py-1 rounded-lg duration-500 
-                    text-black hover:bg-black hover:text-white 
-                    dark:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="relative cursor-pointer px-4 py-1 rounded-lg duration-500 text-theme hover:bg-theme hover:text-theme"
                 >
                     Socials
-
                     {open && (
                         <div
                             ref={menuRef}
-                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 flex gap-4 px-4 py-2 rounded-xl bg-black/10 text-black border border-black/15 dark:bg-white/10 dark:text-white dark:border-white/15 backdrop-blur-md animate-slide-in-h"
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 flex gap-4 px-4 py-2 rounded-xl bg-theme text-theme border border-theme backdrop-blur-md animate-slide-in-h"
                         >
                             {[
                                 { icon: faWhatsapp, href: "https://chat.whatsapp.com/Bv1bqqqzKn9ACam4vSL4LR?mode=ems_copy_t" },

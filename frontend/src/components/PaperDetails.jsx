@@ -11,7 +11,7 @@ export default function PaperDetails({ data, onPick }) {
   return (
     <section className="mt-16">
       {/* Title */}
-      <h2 className="text-center text-4xl md:text-5xl font-semibold font-heading text-neutral-900 dark:text-white">
+      <h2 className="text-center text-4xl md:text-5xl font-semibold font-heading text-theme">
         Paper Details
       </h2>
 
@@ -74,11 +74,11 @@ function SessionColumn({
     <div
       className="
     rounded-2xl p-5
-    border border-black/10 dark:border-white/15
+    border border-theme
     shadow-sm dark:shadow-[inset_0_1px_0_rgba(255,255,255,.06)]
   "
     >
-      <h3 className="font-heading text-center text-xl mb-4 text-neutral-900 dark:text-white">
+      <h3 className="font-heading text-center text-xl mb-4 text-theme">
         {title}
       </h3>
 
@@ -104,8 +104,8 @@ function SessionColumn({
                 onClear={() => setSelectedKey(null)}
                 className="
                   w-full text-left
-                  border-black/15 dark:border-white/20
-                  text-neutral-900 dark:text-white
+                  border-theme
+                  text-theme
                   hover:bg-black/[.03] dark:hover:bg-white/[.08]
                 "
               >

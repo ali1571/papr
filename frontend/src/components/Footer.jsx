@@ -96,6 +96,7 @@ export default function Footer() {
   };
 
   // tone -> colors (smooth transitions)
+  // tone -> colors (smooth transitions)
   const toneClass =
     tone === "sending"
       ? "bg-blue-500 text-white animate-pulse"
@@ -105,19 +106,20 @@ export default function Footer() {
           ? "bg-red-500 text-white"
           : tone === "cooldown"
             ? "bg-gray-400 text-white"
-            : "bg-transparent text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/10";
+            : "bg-transparent text-theme hover:bg-[var(--hover-overlay)]";
+
 
   return (
-    <footer className="bg-white text-black dark:bg-black dark:text-white py-10 mt-5 transition-colors duration-300">
+    <footer className="bg-theme text-theme py-10 mt-5 transition-colors duration-300">
       {/* Social icons */}
       <div className="flex justify-center space-x-10 mb-6">
-        <a href="https://chat.whatsapp.com/Bv1bqqqzKn9ACam4vSL4LR?mode=ems_copy_t" target="_blank" rel="noopener noreferrer" className="text-2xl transform transition-transform duration-300 hover:scale-125 hover:text-text-black dark:hover:text-gray-300">
+        <a href="https://chat.whatsapp.com/Bv1bqqqzKn9ACam4vSL4LR?mode=ems_copy_t" target="_blank" rel="noopener noreferrer" className="text-2xl transform transition-transform duration-300 hover:scale-125 hover:text-gray-300">
           <i className="fa-brands fa-whatsapp"></i>
         </a>
-        <a href="https://discord.gg/9zBsDPDQ" target="_blank" rel="noopener noreferrer" className="text-2xl transform transition-transform duration-300 hover:scale-125 hover:text-text-black dark:hover:text-gray-300">
+        <a href="https://discord.gg/9zBsDPDQ" target="_blank" rel="noopener noreferrer" className="text-2xl transform transition-transform duration-300 hover:scale-125 hover:text-gray-300">
           <i className="fa-brands fa-discord"></i>
         </a>
-        <a href="https://www.instagram.com/papr.site/" target="_blank" rel="noopener noreferrer" className="text-2xl transform transition-transform duration-300 hover:scale-125 hover:text-black dark:hover:text-gray-300">
+        <a href="https://www.instagram.com/papr.site/" target="_blank" rel="noopener noreferrer" className="text-2xl transform transition-transform duration-300 hover:scale-125 hover:text-gray-300">
           <i className="fa-brands fa-instagram"></i>
         </a>
       </div>
@@ -128,19 +130,20 @@ export default function Footer() {
       </div>
 
       {/* Feedback input + submit */}
+      {/* Feedback input + submit */}
       <form ref={formRef} onSubmit={handleSubmit} className="flex justify-center mb-4">
-        <div className="flex flex-row max-[420px]:flex-col border border-gray-300 dark:border-white/20 rounded-lg overflow-hidden w-full max-w-md">
+        <div className="flex flex-row max-[420px]:flex-col border border-theme rounded-lg overflow-hidden w-full max-w-md">
           <input
             type="text"
             name="feedback"
             placeholder="Give us Feedback"
-            className="flex-grow font-body px-4 py-2 bg-gray-100 dark:bg-white/5 text-black dark:text-white placeholder-gray-500 focus:outline-none"
+            className="flex-grow font-body px-4 py-2 bg-panel text-theme placeholder-theme focus:outline-none"
             disabled={tone === "sending"}
           />
           <button
             type="submit"
             disabled={tone === "sending" || tone === "cooldown"}
-            className={`cursor-pointer px-4 py-2 font-body border-l max-[420px]:border-l-0 max-[420px]:border-t border-gray-300 dark:border-white/20 transition-colors duration-300 ${toneClass}`}
+            className={`cursor-pointer px-4 py-2 font-body border-l max-[420px]:border-l-0 max-[420px]:border-t border-theme transition-colors duration-500 ${toneClass}`}
           >
             {label}
           </button>

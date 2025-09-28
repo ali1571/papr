@@ -74,7 +74,7 @@ export default function HeroSection({
   const years = subject ? yearsBySubject[subject] || [] : [];
 
   return (
-    <section className="relative isolate w-full h-[641px] text-black dark:text-white flex flex-col justify-center items-center overflow-visible hero-bg transition-colors duration-300">
+    <section className="elative isolate w-full h-[641px] text-theme flex flex-col justify-center items-center overflow-visible hero-bg transition-colors duration-300">
       <div className="hero-content w-full flex flex-col items-center">
 
         {/* LEFT QUOTE */}
@@ -127,8 +127,7 @@ export default function HeroSection({
 
 
         {/* === CENTER HERO CONTENT === */}
-        <div className="z-10 flex flex-col ml-10 md:ml-20 md:flex-row items-center md:items-start gap-2 md:gap-10 translate-y-[-50%]">
-
+        <div className="z-10 flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-10 translate-y-[-30%]">
           {/* Left: brand + tiny note */}
           <div className="relative inline-block">
             <h1
@@ -146,13 +145,16 @@ export default function HeroSection({
           {/* Right: badge ABOVE big quote (same row; this side is a column) */}
           <div className="flex flex-col items-center md:items-start">
             {/* glassy badge */}
-            <span className="mt-3 md:mt-0 inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-body text-xs md:text-sm tracking-wide bg-white/80 dark:bg-white/10 border border-black/10 dark:border-white/15 backdrop-blur-md shadow-md text-neutral-900 dark:text-white">
+            <span className="mt-3 md:mt-0 inline-flex items-center gap-2 px-4 py-1.5 
+              rounded-full font-body text-xs md:text-sm tracking-wide 
+              bg-panel border border-theme text-theme 
+              backdrop-blur-md shadow-md">
               <i className="fa-regular fa-star"></i>
               Built for students, by students
             </span>
 
             {/* big right-side quote */}
-            <div className="mt-3 font-body font-extrabold uppercase text-[26px] xl:text-[30px] leading-[1.1] tracking-wide text-neutral-900 dark:text-white text-center md:text-left">
+            <div className="mt-3 font-body font-extrabold uppercase text-[26px] xl:text-[30px] leading-[1.1] tracking-wide text-theme text-center md:text-left">
               KEEP ON SOLVING.<br />
               ANJUM ONCE SAID: TEZ NI<br />
               ZYADA BHAAG.
@@ -167,7 +169,7 @@ export default function HeroSection({
               <Dropdown placeholder="Subject" items={subjects} value={subject} onChange={handleSubjectChange} className="w-full sm:flex-1" />
               <Dropdown placeholder="Year" items={years.map(String)} value={year} onChange={handleYearChange} disabled={!subject} className="w-full sm:flex-1" />
             </div>
-            <button className="mt-4 w-full px-5 py-2 rounded-[10px] backdrop-blur-md border border-black dark:border-white text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/15 transition disabled:opacity-50 duration-300 font-body cursor-pointer block" disabled={!subject || !year || loading} onClick={() => onFind?.(subject, year)}>
+            <button className="mt-4 w-full px-5 py-2 rounded-[10px] backdrop-blur-md border border-theme text-theme hover:bg-theme/10 transition disabled:opacity-50 duration-300 font-body cursor-pointer block" disabled={!subject || !year || loading} onClick={() => onFind?.(subject, year)}>
               {loading ? <ButtonLoader /> : "Find Paper"}
             </button>
           </div>

@@ -95,51 +95,54 @@ const StyledWrapper = styled.div`
   line-height: 1.4;
 
   /* Button */
-  .link {
-    position: relative;
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(6px);
-    transition: all .28s cubic-bezier(.23,1,.32,1);
-    cursor: pointer;
+.link {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--divider);
+  background: var(--panel);
+  color: var(--color-text);
+  backdrop-filter: blur(6px);
+  transition: all .28s cubic-bezier(.23,1,.32,1);
+  cursor: pointer;
+}
+.link > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.link svg { width: 14px; height: 14px; fill: var(--color-text); transition: transform .28s, fill .28s; }
 
-    /* default text/icon color on dark bg */
-    color: #f5f5f5;
-  }
-  .link > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .link svg { width: 14px; height: 14px; fill: #f5f5f5; transition: transform .28s, fill .28s; }
+/* hover: subtle tint that adapts to theme */
+.link:hover { background: var(--hover); }
+.link:hover svg { transform: rotate(-180deg); }
+
 
   /* white fill on hover, flip text/icon to dark for contrast */
   .link::after{
     content:"";
     position:absolute; inset:0;
-    background: rgba(255,255,255,0.95);
+    background: var(--hover);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform .28s cubic-bezier(.23,1,.32,1);
     border-radius:14px;
     z-index:-1;
   }
-  .link:hover { color:#171717; }
-  .link:hover svg{ transform: rotate(-180deg); fill:#171717; }
+  .link:hover { color: var(--color-text); }
+  .link:hover svg{ transform: rotate(-180deg); fill: var(--color-text); }
   .link:hover::after{ transform: scaleX(1); transform-origin: right; }
 
   /* Active state (value selected) — stay white even when not hovered */
   ${(p) => p.$active && `
     .link {
-      background: rgba(255,255,255,0.95);
-      color: #171717;
-      border-color: rgba(255,255,255,.22);
+    background: var(--panel);
+    color: var(--color-text);
+    border-color: var(--divider);
     }
-    .link svg { fill:#171717; }
-    .link::after { display:none; } /* prevent hover overlay fighting */
+    .link svg { fill: var(--color-text); }
+    .link::after { display:none; } 
   `}
 
   /* Disabled */
@@ -151,9 +154,9 @@ const StyledWrapper = styled.div`
   /* Panel */
   .submenu{
     position:absolute; top: calc(100% + 8px); left:0; width:100%;
-    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(6px);
-    border:1px solid rgba(255,255,255,.22);
+    background: var(--panel);
+    border:1px solid var(--divider);
     border-radius: 12px;
     overflow: hidden;
     transform: translateY(-8px);
@@ -170,51 +173,17 @@ const StyledWrapper = styled.div`
   .submenu-link{
     width:100%; text-align:left;
     padding:10px 14px; cursor:pointer; background:transparent; border:none;
-    color:#171717;
+    color: var(--color-text);
     transition: background .18s ease, transform .18s ease;
   }
-  .submenu-link:hover{ background: rgba(0,0,0,0.06); transform: translateX(2px); }
+  .submenu-link:hover{ background: var(--hover); transform: translateX(2px); }
 
-  .submenu-item.empty{ padding:12px 14px; color:#777; }
+  .submenu-item.empty{ padding:12px 14px; color: var(--divider); }
 
   /* slim scrollbar inside panel */
   .submenu::-webkit-scrollbar { width: 6px; }
   .submenu::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25); border-radius: 3px; }
 
-  
-/* ---------- LIGHT MODE OVERRIDES ---------- */
-  :root:not(.dark) & .link {
-    border: 1px solid rgba(0,0,0,.12);
-    background: rgba(0,0,0,.06);
-    color: #171717;
-  }
-  :root:not(.dark) & .link svg { fill:#171717; }
-
-  /* On light, the hover overlay should darken slightly (not white) */
-  :root:not(.dark) & .link::after {
-    background: rgba(0,0,0,.08);
-  }
-  :root:not(.dark) & .link:hover { color:#0f0f0f; }
-  :root:not(.dark) & .link:hover svg { fill:#0f0f0f; }
-
-  /* When a value is selected (active), keep it visible on light */
-  ${(p) => p.$active && `
-    :root:not(.dark) & .link {
-      background: #ffffff;
-      border-color: rgba(0,0,0,.14);
-      color: #171717;
-    }
-    :root:not(.dark) & .link::after { display:none; }
-  `}
-
-  /* Dark-mode panel is fine; add explicit dark panel if you want higher contrast */
-  .submenu { /* light defaults already white */ }
-  .dark & .submenu{
-    background: rgba(24,24,24,.98);
-    border-color: rgba(255,255,255,.12);
-  }
-  .dark & .submenu-link{ color:#f5f5f5; }
-  .dark & .submenu-link:hover{ background: rgba(255,255,255,.06); }
 `;
 
 export default Dropdown;

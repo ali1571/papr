@@ -48,12 +48,11 @@ const StyledWrapper = styled.div`
     position: relative;
     background: transparent;
     cursor: pointer;
-    border: 2px solid rgba(0,0,0,.8);    /* light default */
+    border: 2px solid var(--divider);
+    color: var(--color-text);
     border-radius: 10px;
-    color: #111;                         /* dark text on light */
     overflow: hidden;
-    transition: color .35s ease, border-color .35s ease, box-shadow .35s ease,
-                filter .25s ease, opacity .25s ease;
+    transition: color .35s ease, border-color .35s ease, box-shadow .35s ease, filter .25s ease, opacity .25s ease;
   }
 
   .btn:focus-visible {
@@ -80,13 +79,13 @@ const StyledWrapper = styled.div`
     top: 50%;
     transform: translate(-50%, -50%) scale(0);
     border-radius: 30px;
-    background: #111;   /* light: black ripple */
+    background: var(--color-text);
     transition: transform .5s cubic-bezier(.23,1,.32,1);
     z-index: 0;
   }
 
   .btn:hover {
-    color: #fff;
+    color: var(--color-bg);
     border-color: transparent;
     box-shadow: 0 8px 60px rgba(0,0,0,.15);
   }
@@ -96,8 +95,8 @@ const StyledWrapper = styled.div`
 
   /* Active (selected) */
   .btn.is-active {
-    background: #111;   /* black bg */
-    color: #fff;        /* white text */
+    background: #111;
+    color: #fff;
     border-color: transparent;
   }
   .btn.is-active.type1::after {
@@ -123,7 +122,7 @@ const StyledWrapper = styled.div`
     font-size: 14px;
     line-height: 1;
     z-index: 2;
-    color: #fff;  /* white on dark active */
+    color: var(--color-bg);
     opacity: .7;
     transition: opacity .2s ease, transform .2s ease;
   }
@@ -131,27 +130,5 @@ const StyledWrapper = styled.div`
     opacity: 1;
     transform: scale(1.1);
     cursor: pointer;
-  }
-
-  /* ---------- DARK MODE OVERRIDES ---------- */
-  .dark & .btn {
-    border-color: rgba(255,255,255,.9);
-    color: rgba(255,255,255,.92);
-  }
-  .dark & .type1::after { background: #fff; } /* white ripple */
-  .dark & .btn:hover {
-    color: #0f0f0f;
-    box-shadow: 0 8px 60px rgba(255,255,255,.12);
-  }
-  .dark & .btn.is-active {
-    background: #fff;
-    color: #0f0f0f;
-  }
-  .dark & .btn.is-active:hover {
-    color: #0f0f0f;
-    box-shadow: 0 8px 40px rgba(255,255,255,.12);
-  }
-  .dark & .close-x {
-    color: #0f0f0f;
   }
 `;

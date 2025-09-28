@@ -23,17 +23,17 @@
   <div id="root"></div>
   <!-- index.html, inside <head> (after Tailwind CSS but before your app mounts) -->
   <script defer type="module" src="main.jsx">
-    // 1) read saved theme OR system preference
+    
     const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved ?? (prefersDark ? 'dark' : 'light');
+    const theme = saved ?? 'dark';   // default = dark
 
-    // 2) apply it to <html>
-    if (theme === 'dark') document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
-
-    // (optional) keep a data attribute if you want CSS to read it
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
     document.documentElement.setAttribute('data-theme', theme);
+
   </script>
 </body>
 
