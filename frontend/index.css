@@ -172,6 +172,50 @@ body {
   animation: fadeIn 2.7s ease forwards;
 }
 
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.fade-in-up-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.fade-in-up-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.fade-in-up-delay-3 {
+  animation-delay: 0.3s;
+}
+
 
 /* ---------- Utilities ---------- */
 @layer utilities {
@@ -398,8 +442,8 @@ body {
 
 @layer components {
   .app-frame {
-    width: 90%;
-    max-width: 1600px;
+    width: 95%;
+    max-width: 2000px;
     height: 90dvh;
     border-radius: 28px;
     background: transparent;

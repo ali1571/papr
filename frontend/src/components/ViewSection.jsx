@@ -1,11 +1,18 @@
 // src/components/ViewSection.jsx
-import React from "react";
+import React, { useState, memo } from "react";
 import PdfViewer from "./ui/PdfViewer.jsx";
 
-export default function ViewSection({ qpUrl = "", msUrl = "" }) {
+const ViewSection = memo(function ViewSection({ qpUrl = "", msUrl = "", inUrl = "" }) {
+  const [showingInsert, setShowingInsert] = useState(false);
+  const hasInsert = !!inUrl;
+
+  // Determine which URL to show in the right panel
+  const rightPanelUrl = hasInsert && showingInsert ? inUrl : msUrl;
+  const rightPanelLabel = hasInsert && showingInsert ? "Insert" : "Marking Scheme";
+
   return (
     <section className="my-8">
-      <div className="max-w-[98%] mx-auto">
+      <div className="w-full mx-auto">
         {/* Grid: stacks on mobile, 2 columns on large screens */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
@@ -28,7 +35,7 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
             </div>
 
             {/* QP PDF */}
-            <div className="h-[70dvh]">
+            <div className="h-[85dvh]">
               {qpUrl ? (
                 <PdfViewer fileUrl={qpUrl} />
               ) : (
@@ -37,28 +44,39 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
             </div>
           </div>
 
-          {/* MS box */}
+          {/* MS/Insert box */}
           <div className="rounded-2xl border border-theme overflow-hidden">
             <div className="px-4 py-3 border-b border-theme flex items-center justify-between">
               <div className="font-heading text-sm text-theme tracking-wide">
-                Marking Scheme
+                {rightPanelLabel}
               </div>
-              {msUrl && (
-                <a
-                  href={msUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
-                >
-                  Open in new tab ↗
-                </a>
-              )}
+              <div className="flex items-center gap-2">
+                {/* Toggle button for Insert (only show if insert URL exists) */}
+                {inUrl && (
+                  <button
+                    onClick={() => setShowingInsert(!showingInsert)}
+                    className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
+                  >
+                    {showingInsert ? "Mark Scheme" : "Insert"}
+                  </button>
+                )}
+                {rightPanelUrl && (
+                  <a
+                    href={rightPanelUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
+                  >
+                    Open in new tab ↗
+                  </a>
+                )}
+              </div>
             </div>
 
-            {/* MS PDF */}
-            <div className="h-[70dvh]">
-              {msUrl ? (
-                <PdfViewer fileUrl={msUrl} />
+            {/* MS/Insert PDF */}
+            <div className="h-[85dvh]">
+              {rightPanelUrl ? (
+                <PdfViewer fileUrl={rightPanelUrl} />
               ) : (
                 <EmptySlot label="Pick a paper to preview" />
               )}
@@ -69,7 +87,9 @@ export default function ViewSection({ qpUrl = "", msUrl = "" }) {
       </div>
     </section>
   );
-}
+});
+
+export default ViewSection;
 
 function EmptySlot({ label }) {
   return (

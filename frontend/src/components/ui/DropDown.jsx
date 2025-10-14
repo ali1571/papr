@@ -154,8 +154,8 @@ const StyledWrapper = styled.div`
   /* Panel */
   .submenu{
     position:absolute; top: calc(100% + 8px); left:0; width:100%;
-    backdrop-filter: blur(6px);
-    background: var(--panel);
+    backdrop-filter: blur(112px);
+    background: rgba(0, 0, 0, 0.92);
     border:1px solid var(--divider);
     border-radius: 12px;
     overflow: hidden;

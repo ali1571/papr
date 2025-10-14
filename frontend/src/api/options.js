@@ -11,7 +11,8 @@ export const subjects = [
     "Economics",
     "Business Studies",
     "English Language",
-    "Urdu"
+    "Urdu",
+    "pkst"
 ];
 
 // Years per subject (placeholder; reuse same years for now)
@@ -28,4 +29,5 @@ export const yearsBySubject = {
     "Business Studies": defaultYears,
     "English Language": defaultYears,
     Urdu: defaultYears,
+    "pkst": defaultYears,
 };

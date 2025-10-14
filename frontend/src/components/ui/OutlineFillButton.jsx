@@ -107,11 +107,9 @@ const StyledWrapper = styled.div`
     box-shadow: 0 8px 40px rgba(0,0,0,.25);
   }
 
-  /* Dimmed */
+  /* Dimmed - visually de-emphasized but still clickable */
   .btn.is-dimmed {
-    opacity: .35;
-    filter: blur(1px);
-    pointer-events: none;
+    opacity: .5;
   }
 
   /* Tiny X */
@@ -122,7 +120,7 @@ const StyledWrapper = styled.div`
     font-size: 14px;
     line-height: 1;
     z-index: 2;
-    color: var(--color-bg);
+    color: #fff;
     opacity: .7;
     transition: opacity .2s ease, transform .2s ease;
   }

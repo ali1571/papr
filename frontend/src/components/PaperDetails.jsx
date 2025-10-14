@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import OutlineFillButton from "./ui/OutlineFillButton";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-export default function PaperDetails({ data, onPick }) {
+const PaperDetails = memo(function PaperDetails({ data, onPick }) {
   const meta = data?.meta;
   const [selectedKey, setSelectedKey] = useState(null);
+  const [ref, isVisible] = useScrollAnimation({ threshold: 0.1 });
 
   const isActive = (key) => selectedKey === key;
   const isDimmed = (key) => selectedKey && selectedKey !== key;
 
   return (
-    <section className="mt-16">
+    <section ref={ref} className={`mt-16 ${isVisible ? 'fade-in-up' : ''}`}>
       {/* Title */}
       <h2 className="text-center text-4xl md:text-5xl font-semibold font-heading text-theme">
         Paper Details
@@ -21,6 +23,15 @@ export default function PaperDetails({ data, onPick }) {
           ? `${meta.subject_name} (${meta.subject_code}) — ${meta.year}`
           : "Choose a subject and year above"}
       </p>
+
+      {/* pkst Insert info */}
+      {meta && meta.subject_code === "2059" && (
+        <div className="max-w-2xl mx-auto mt-6 px-4 py-3 rounded-xl bg-blue-5 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/50">
+          <p className="font-body text-sm text-center text-white dark:text-blue-200">
+            <span className="font-semibold">Pro tip:</span>  <span className="font-semibold">"Insert"</span> are right next to markscheme button. It'll show up after you pick the paper.rm -f nul
+          </p>
+        </div>
+      )}
 
       {data === undefined && (
         <div className="text-center text-neutral-500 dark:text-neutral-400">No data yet.</div>
@@ -64,12 +75,17 @@ export default function PaperDetails({ data, onPick }) {
       )}
     </section>
   );
-}
+});
+
+export default PaperDetails;
 
 function SessionColumn({
   title, items, sessionCode, onPick,
   selectedKey, setSelectedKey, isActive, isDimmed
 }) {
+  // Check if all items have variant "V1" (like pkst)
+  const allVariantsAreV1 = items?.every(it => it.variant === "V1");
+
   return (
     <div
       className="
@@ -86,6 +102,11 @@ function SessionColumn({
         {items?.length ? (
           items.map((it) => {
             const key = `${sessionCode}-${it.paper}-${it.variant}`;
+            // Display format: if all variants are V1, hide variant info
+            const displayText = allVariantsAreV1
+              ? `Paper ${it.paper.replace("P", "")}`
+              : `Paper ${it.paper.replace("P", "")} — Variant ${it.variant.replace("V", "")}`;
+
             return (
               <OutlineFillButton
                 key={key}
@@ -107,9 +128,11 @@ function SessionColumn({
                   border-theme
                   text-theme
                   hover:bg-black/[.03] dark:hover:bg-white/[.08]
+                  transform transition-all duration-200
+                  hover:scale-[1.02] hover:shadow-lg
                 "
               >
-                {`Paper ${it.paper.replace("P", "")} — Variant ${it.variant.replace("V", "")}`}
+                {displayText}
               </OutlineFillButton>
             );
           })
