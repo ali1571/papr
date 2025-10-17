@@ -145,11 +145,11 @@ export default function HeroSection({
           {/* Right: badge ABOVE big quote (same row; this side is a column) */}
           <div className="flex flex-col items-center md:items-start">
             {/* glassy badge */}
-            <span className="mt-3 md:mt-0 inline-flex items-center gap-2 px-4 py-1.5 
-              rounded-full font-body text-xs md:text-sm tracking-wide 
-              bg-panel border border-theme text-theme 
-              backdrop-blur-md shadow-md">
-              <i className="fa-regular fa-star"></i>
+            <span className="mt-3 md:mt-0 inline-flex items-center gap-2 px-4 py-1.5
+              rounded-full font-body text-xs md:text-sm tracking-wide
+              bg-panel border border-theme text-theme
+              backdrop-blur-md shadow-md group">
+              <i className="fa-regular fa-star transition-all duration-300 group-hover:text-yellow-400 group-hover:drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"></i>
               Built for students, by students
             </span>
 
