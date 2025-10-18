@@ -174,6 +174,14 @@ export default function HeroSection({
             </button>
           </div>
         </div>
+
+        {/* SEO Content - Hidden but accessible to search engines */}
+        <div className="sr-only" aria-hidden="true">
+          <h2>Download Free O Level and IGCSE Past Papers</h2>
+          <p>Access comprehensive O Level and IGCSE past papers for all major subjects. Our collection includes Chemistry 5070 past papers, Physics 5054 past papers, Mathematics 4024 pastpapers, Computer Science 2210 past papers, Economics 2281 past papers, Islamiat 2058 past papers, and Pakistan Studies 2059 past papers.</p>
+          <p>Download question papers (QP), mark schemes (MS), and examiner reports (ER) from 2018 to 2025. All past papers are available for free, covering summer and winter sessions.</p>
+          <p>Whether you need O level pastpaper 2023, O level pastpaper 2024, or O level pastpaper 2025, we have them all. Perfect for exam preparation and revision. CAIE Cambridge past papers made easy.</p>
+        </div>
       </div>
     </section>
   );
