@@ -3,16 +3,12 @@
 // Famous O‑Level subjects (tweak freely)
 export const subjects = [
     "Mathematics",
-    "Accounting",
+    "pkst",
     "Physics",
     "Chemistry",
-    "Biology",
     "Computer Science",
     "Economics",
-    "Business Studies",
-    "English Language",
-    "Urdu",
-    "pkst"
+    "ADDING BAAKI SUBS BHI WAITTT"
 ];
 
 // Years per subject (placeholder; reuse same years for now)
