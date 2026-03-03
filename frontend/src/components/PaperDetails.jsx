@@ -28,8 +28,7 @@ const PaperDetails = memo(function PaperDetails({ data, onPick }) {
       {meta && meta.subject_code === "2059" && (
         <div className="max-w-2xl mx-auto mt-6 px-4 py-3 rounded-xl bg-blue-5 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/50">
           <p className="font-body text-sm text-center text-white dark:text-blue-200">
-            <span className="font-semibold">Pro tip:</span>  <span className="font-semibold">"Insert"</span> are right next to markscheme button. It'll show up after you pick the paper.rm -f nul
-          </p>
+            <span className="font-semibold">Pro tip:</span>  <span className="font-semibold">"Insert"</span> are right next to markscheme button. It'll show up after you pick the paper.</p>
         </div>
       )}
 
