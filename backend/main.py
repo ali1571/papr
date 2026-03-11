@@ -7,14 +7,14 @@
   "paper": "P4",
   "variant": "V2",
   "doc_type": "qp",
-  "file_url": "https://eqrlfxzcfohxidwdkjwc.supabase.co/storage/v1/object/public/past-papers/downloads/physics/24/winter/5054_w24_p4_v2_qp.pdf"
+  "file_url": "https://wxeumwbzshdpxkxrzevw.supabase.co/storage/v1/object/public/past-paper/downloads/physics/24/winter/5054_w24_p4_v2_qp.pdf"
 }
 '''
 import os
 import json
 
 
-# https://eqrlfxzcfohxidwdkjwc.supabase.co/storage/v1/object/public/past-papers/downloads/physics/24/winter/5054_w24_p1_v1_qp.pdf
+# https://wxeumwbzshdpxkxrzevw.supabase.co/storage/v1/object/public/past-paper/downloads/physics/24/winter/5054_w24_p1_v1_qp.pdf
 
 
 def transform_to_nested(all_files_data):
@@ -87,7 +87,7 @@ def transform_to_nested(all_files_data):
 
 
 def build_url(root, filename):
-    Base = 'https://eqrlfxzcfohxidwdkjwc.supabase.co/storage/v1/object/public/past-papers/'
+    Base = 'https://wxeumwbzshdpxkxrzevw.supabase.co/storage/v1/object/public/past-paper/'
     # Normalize path separators
     root = root.replace("\\", '/')
     # Extract only the part after 'downloads/'
