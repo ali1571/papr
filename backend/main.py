@@ -7,14 +7,14 @@
   "paper": "P4",
   "variant": "V2",
   "doc_type": "qp",
-  "file_url": "https://eqrlfxzcfohxidwdkjwc.supabase.co/storage/v1/object/public/past-papers/downloads/physics/24/winter/5054_w24_p4_v2_qp.pdf"
+  "file_url": "https://xyz.supabase.co/storage/v1/object/public/past-papers/downloads/physics/24/winter/5054_w24_p4_v2_qp.pdf"
 }
 '''
 import os
 import json
 
 
-# https://eqrlfxzcfohxidwdkjwc.supabase.co/storage/v1/object/public/past-papers/downloads/physics/24/winter/5054_w24_p1_v1_qp.pdf
+
 
 
 def transform_to_nested(all_files_data):
