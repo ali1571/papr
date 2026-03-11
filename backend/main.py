@@ -87,7 +87,7 @@ def transform_to_nested(all_files_data):
 
 
 def build_url(root, filename):
-    Base = 'https://eqrlfxzcfohxidwdkjwc.supabase.co/storage/v1/object/public/past-papers/'
+    Base = 'https://xyz.supabase.co/storage/v1/object/public/past-papers/'
     # Normalize path separators
     root = root.replace("\\", '/')
     # Extract only the part after 'downloads/'
