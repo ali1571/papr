@@ -47,7 +47,7 @@ function transformToNested(allFiles) {
 
 async function getPapers(subject, year) {
   const { data, error } = await supabase
-    .from('past-papers')
+    .from('past-paper')
     .select('*')
     .eq('subject_name', subject)
     .eq('year', year)
