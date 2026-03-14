@@ -6,7 +6,7 @@ export const subjects = [
     "pkst",
     "Physics",
     "Chemistry",
-    "Islamiat"
+    "Islamiat",
     "Computer Science",
     "Economics",
     "ADDING BAAKI SUBS BHI WAITTT"
