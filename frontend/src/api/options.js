@@ -17,7 +17,7 @@ const defaultYears = [2024, 2023, 2022, 2021, 2020, 2019, 2018];
 
 export const yearsBySubject = {
     Mathematics: defaultYears,
-    Islamiat : defaultYears,
+    Islamiat: defaultYears,
     Accounting: defaultYears,
     Physics: defaultYears,
     Chemistry: defaultYears,
