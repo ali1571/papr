@@ -6,8 +6,8 @@ const ViewSection = memo(function ViewSection({ qpUrl = "", msUrl = "", inUrl = 
   const [showingInsert, setShowingInsert] = useState(false);
   const hasInsert = !!inUrl;
 
-  const rightPanelUrl = hasInsert && showingInsert ? inUrl : msUrl;
   const rightPanelLabel = hasInsert && showingInsert ? "Insert" : "Marking Scheme";
+  const rightPanelUrl = hasInsert && showingInsert ? inUrl : msUrl;
 
   return (
     <section className="my-8">
@@ -21,7 +21,7 @@ const ViewSection = memo(function ViewSection({ qpUrl = "", msUrl = "", inUrl = 
             emptyLabel="Pick a paper to preview"
           />
 
-          {/* MS / Insert panel */}
+          {/* MS / Insert panel — both PDFs stay mounted, toggled via CSS */}
           <PanelWithToolbar
             label={rightPanelLabel}
             url={rightPanelUrl}
@@ -36,6 +36,9 @@ const ViewSection = memo(function ViewSection({ qpUrl = "", msUrl = "", inUrl = 
                 </button>
               ) : null
             }
+            msUrl={msUrl}
+            inUrl={inUrl}
+            showingInsert={showingInsert}
           />
 
         </div>
@@ -46,7 +49,9 @@ const ViewSection = memo(function ViewSection({ qpUrl = "", msUrl = "", inUrl = 
 
 export default ViewSection;
 
-function PanelWithToolbar({ label, url, emptyLabel, extraAction }) {
+function PanelWithToolbar({ label, url, emptyLabel, extraAction, msUrl, inUrl, showingInsert }) {
+  const hasDualPdf = !!(msUrl && inUrl);
+
   return (
     <div className="group relative rounded-2xl border border-theme overflow-hidden">
 
@@ -84,7 +89,16 @@ function PanelWithToolbar({ label, url, emptyLabel, extraAction }) {
 
       {/* PDF or empty slot */}
       <div className="h-[85dvh]">
-        {url ? (
+        {hasDualPdf ? (
+          <div className="relative w-full h-full">
+            <div className={`absolute inset-0 ${showingInsert ? "invisible pointer-events-none" : ""}`}>
+              <PdfViewer fileUrl={msUrl} />
+            </div>
+            <div className={`absolute inset-0 ${showingInsert ? "" : "invisible pointer-events-none"}`}>
+              <PdfViewer fileUrl={inUrl} />
+            </div>
+          </div>
+        ) : url ? (
           <PdfViewer fileUrl={url} />
         ) : (
           <EmptySlot label={emptyLabel} />
