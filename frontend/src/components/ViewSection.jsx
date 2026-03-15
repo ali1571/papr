@@ -6,82 +6,37 @@ const ViewSection = memo(function ViewSection({ qpUrl = "", msUrl = "", inUrl = 
   const [showingInsert, setShowingInsert] = useState(false);
   const hasInsert = !!inUrl;
 
-  // Determine which URL to show in the right panel
   const rightPanelUrl = hasInsert && showingInsert ? inUrl : msUrl;
   const rightPanelLabel = hasInsert && showingInsert ? "Insert" : "Marking Scheme";
 
   return (
     <section className="my-8">
       <div className="w-full mx-auto">
-        {/* Grid: stacks on mobile, 2 columns on large screens */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
-          {/* QP box */}
-          <div className="rounded-2xl border border-theme overflow-hidden">
-            <div className="px-4 py-3 border-b border-theme flex items-center justify-between">
-              <div className="font-heading text-sm text-theme tracking-wide">
-                Question Paper
-              </div>
-              {qpUrl && (
-                <a
-                  href={qpUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
+          {/* QP panel */}
+          <PanelWithToolbar
+            label="Question Paper"
+            url={qpUrl}
+            emptyLabel="Pick a paper to preview"
+          />
+
+          {/* MS / Insert panel */}
+          <PanelWithToolbar
+            label={rightPanelLabel}
+            url={rightPanelUrl}
+            emptyLabel="Pick a paper to preview"
+            extraAction={
+              inUrl ? (
+                <button
+                  onClick={() => setShowingInsert((p) => !p)}
+                  className="px-3 py-1 text-xs font-heading rounded-md border border-white/20 text-white/80 hover:bg-white/10 transition-colors duration-200"
                 >
-                  Open in new tab ↗
-                </a>
-              )}
-            </div>
-
-            {/* QP PDF */}
-            <div className="h-[85dvh]">
-              {qpUrl ? (
-                <PdfViewer fileUrl={qpUrl} />
-              ) : (
-                <EmptySlot label="Pick a paper to preview" />
-              )}
-            </div>
-          </div>
-
-          {/* MS/Insert box */}
-          <div className="rounded-2xl border border-theme overflow-hidden">
-            <div className="px-4 py-3 border-b border-theme flex items-center justify-between">
-              <div className="font-heading text-sm text-theme tracking-wide">
-                {rightPanelLabel}
-              </div>
-              <div className="flex items-center gap-2">
-                {/* Toggle button for Insert (only show if insert URL exists) */}
-                {inUrl && (
-                  <button
-                    onClick={() => setShowingInsert(!showingInsert)}
-                    className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
-                  >
-                    {showingInsert ? "Mark Scheme" : "Insert"}
-                  </button>
-                )}
-                {rightPanelUrl && (
-                  <a
-                    href={rightPanelUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1 text-xs font-heading border border-theme text-theme hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-400"
-                  >
-                    Open in new tab ↗
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* MS/Insert PDF */}
-            <div className="h-[85dvh]">
-              {rightPanelUrl ? (
-                <PdfViewer fileUrl={rightPanelUrl} />
-              ) : (
-                <EmptySlot label="Pick a paper to preview" />
-              )}
-            </div>
-          </div>
+                  {showingInsert ? "Mark Scheme" : "Insert"}
+                </button>
+              ) : null
+            }
+          />
 
         </div>
       </div>
@@ -90,6 +45,55 @@ const ViewSection = memo(function ViewSection({ qpUrl = "", msUrl = "", inUrl = 
 });
 
 export default ViewSection;
+
+function PanelWithToolbar({ label, url, emptyLabel, extraAction }) {
+  return (
+    <div className="group relative rounded-2xl border border-theme overflow-hidden">
+
+      {/* Floating toolbar — visible on hover */}
+      <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none
+                      opacity-0 -translate-y-2
+                      group-hover:opacity-100 group-hover:translate-y-0
+                      transition-all duration-300 ease-out">
+        <div className="pointer-events-auto flex items-center gap-2 px-3 py-1.5
+                        rounded-full backdrop-blur-md
+                        bg-black/60 border border-white/10
+                        shadow-lg text-white/90 text-xs font-heading whitespace-nowrap">
+          <span className="opacity-60">{label}</span>
+          {extraAction && (
+            <>
+              <span className="opacity-20">|</span>
+              {extraAction}
+            </>
+          )}
+          {url && (
+            <>
+              <span className="opacity-20">|</span>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors duration-200"
+              >
+                Open ↗
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* PDF or empty slot */}
+      <div className="h-[85dvh]">
+        {url ? (
+          <PdfViewer fileUrl={url} />
+        ) : (
+          <EmptySlot label={emptyLabel} />
+        )}
+      </div>
+
+    </div>
+  );
+}
 
 function EmptySlot({ label }) {
   return (

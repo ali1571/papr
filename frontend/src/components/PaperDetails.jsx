@@ -28,8 +28,7 @@ const PaperDetails = memo(function PaperDetails({ data, onPick }) {
       {meta && meta.subject_code === "2059" && (
         <div className="max-w-2xl mx-auto mt-6 px-4 py-3 rounded-xl bg-blue-5 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/50">
           <p className="font-body text-sm text-center text-white dark:text-blue-200">
-            <span className="font-semibold">Pro tip:</span>  <span className="font-semibold">"Insert"</span> are right next to markscheme button. It'll show up after you pick the paper.rm -f nul
-          </p>
+            <span className="font-semibold">Pro tip:</span>  <span className="font-semibold">"Insert"</span> are right next to markscheme button. It'll show up after you pick the paper.</p>
         </div>
       )}
 
@@ -40,6 +39,7 @@ const PaperDetails = memo(function PaperDetails({ data, onPick }) {
       {meta && !data?.error && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
           <SessionColumn
+            key={`s-${meta.subject_name}-${meta.year}`}
             title="Summer"
             items={data?.s || []}
             sessionCode="s"
@@ -50,6 +50,7 @@ const PaperDetails = memo(function PaperDetails({ data, onPick }) {
             isDimmed={isDimmed}
           />
           <SessionColumn
+            key={`w-${meta.subject_name}-${meta.year}`}
             title="Winter"
             items={data?.w || []}
             sessionCode="w"
@@ -100,7 +101,7 @@ function SessionColumn({
 
       <div className="flex flex-col items-stretch gap-4">
         {items?.length ? (
-          items.map((it) => {
+          items.map((it, index) => {
             const key = `${sessionCode}-${it.paper}-${it.variant}`;
             // Display format: if all variants are V1, hide variant info
             const displayText = allVariantsAreV1
@@ -108,32 +109,37 @@ function SessionColumn({
               : `Paper ${it.paper.replace("P", "")} — Variant ${it.variant.replace("V", "")}`;
 
             return (
-              <OutlineFillButton
+              <div
                 key={key}
-                active={isActive(key)}
-                dimmed={isDimmed(key)}
-                onClick={() => {
-                  setSelectedKey(key);
-                  onPick?.({
-                    session: sessionCode,
-                    paper: it.paper,
-                    variant: it.variant,
-                    types: it.types,
-                    links: it.links,
-                  });
-                }}
-                onClear={() => setSelectedKey(null)}
-                className="
-                  w-full text-left
-                  border-theme
-                  text-theme
-                  hover:bg-black/[.03] dark:hover:bg-white/[.08]
-                  transform transition-all duration-200
-                  hover:scale-[1.02] hover:shadow-lg
-                "
+                className="fade-in-up"
+                style={{ animationDelay: `${index * 60}ms` }}
               >
-                {displayText}
-              </OutlineFillButton>
+                <OutlineFillButton
+                  active={isActive(key)}
+                  dimmed={isDimmed(key)}
+                  onClick={() => {
+                    setSelectedKey(key);
+                    onPick?.({
+                      session: sessionCode,
+                      paper: it.paper,
+                      variant: it.variant,
+                      types: it.types,
+                      links: it.links,
+                    });
+                  }}
+                  onClear={() => setSelectedKey(null)}
+                  className="
+                    w-full text-left
+                    border-theme
+                    text-theme
+                    hover:bg-black/[.03] dark:hover:bg-white/[.08]
+                    transform transition-all duration-200
+                    hover:scale-[1.02] hover:shadow-lg
+                  "
+                >
+                  {displayText}
+                </OutlineFillButton>
+              </div>
             );
           })
         ) : (

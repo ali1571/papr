@@ -1,49 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { zoomPlugin } from "@react-pdf-viewer/zoom";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import "@react-pdf-viewer/zoom/lib/styles/index.css";
 
-/**
- * PdfViewer - Optimized
- * - Fast PDF loading with proper loading states
- * - Error handling for failed loads
- */
 export default function PdfViewer({ fileUrl }) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-
-  if (!fileUrl) return null;
-
   const zoomPluginInstance = zoomPlugin();
-
-  const defaultLayout = defaultLayoutPlugin({
-    renderToolbar: (Toolbar) => (
-      <Toolbar>
-        {(slots) => {
-          const { renderDefaultToolbar } = defaultLayout.toolbarPluginInstance;
-          const transform = (slot) => ({
-            ...slot,
-            Open: () => <></>,
-            OpenMenuItem: () => <></>,
-          });
-          return renderDefaultToolbar(transform)(slots);
-        }}
-      </Toolbar>
-    ),
-    sidebarTabs: (defaultTabs) => [defaultTabs[0]],
-  });
 
   useEffect(() => {
     setIsLoading(true);
     setHasError(false);
   }, [fileUrl]);
 
+  if (!fileUrl) return null;
+
   const handleDocumentLoad = () => {
     setIsLoading(false);
-    // Auto-fit to page width for better UX
     setTimeout(() => {
       zoomPluginInstance.zoomTo(SpecialZoomLevel.PageWidth);
     }, 100);
@@ -55,7 +28,7 @@ export default function PdfViewer({ fileUrl }) {
   };
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative overflow-auto">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/5 dark:bg-white/5 z-10">
           <div className="flex flex-col items-center gap-3">
@@ -81,7 +54,7 @@ export default function PdfViewer({ fileUrl }) {
 
       <Viewer
         fileUrl={fileUrl}
-        plugins={[defaultLayout, zoomPluginInstance]}
+        plugins={[zoomPluginInstance]}
         onDocumentLoad={handleDocumentLoad}
         onLoadError={handleDocumentLoadError}
       />

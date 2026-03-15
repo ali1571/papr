@@ -1,10 +1,10 @@
-// papers.js -> API layer for fetching papers data (direct Supabase, no backend)
+// papersALevel.js -> API layer for fetching A-Level papers (separate Supabase DB)
 
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
+  import.meta.env.VITE_SUPABASE_ALEVELS_URL,
+  import.meta.env.VITE_SUPABASE_ALEVELS_ANON_KEY
 )
 
 function transformToNested(allFiles) {
@@ -68,12 +68,7 @@ const flattenSession = (sessionObj) => {
   return out
 }
 
-/**
- * Fetch papers and normalize to UI shape:
- * { s: [...], w: [...], meta: {...}, error: "" }
- * Each item in s/w: { paper, variant, types, links }
- */
-export async function fetchPapers(subject, year) {
+export async function fetchPapersALevel(subject, year) {
   const apiData = await getPapers(subject, year)
   const node = apiData.subjects?.[0]
 

@@ -1,5 +1,6 @@
 // src/components/ui/Navbar.jsx
 import React, { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Switch from './Switch';
 import TopDrawer from './TopDrawer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +8,7 @@ import { faWhatsapp, faDiscord, faInstagram, faPatreon } from '@fortawesome/free
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export default function Navbar() {
+    const { pathname } = useLocation();
     const [open, setOpen] = useState(false);
     const [donateOpen, setDonateOpen] = useState(false);
     const donateBtnRef = useRef(null);
@@ -90,12 +92,29 @@ export default function Navbar() {
             <nav
                 className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-50 cursor-pointer hidden md:flex gap-6 font-body select-none"
             >
-                <a
-                    href="#"
+                <Link
+                    to="/"
                     className="px-5 py-1 rounded-lg duration-500 text-theme hover:bg-theme hover:text-theme"
                 >
                     Home
-                </a>
+                </Link>
+
+                {pathname === '/olevels' && (
+                    <Link
+                        to="/alevels"
+                        className="px-5 py-1 rounded-lg duration-500 text-theme hover:bg-theme hover:text-theme"
+                    >
+                        A Levels
+                    </Link>
+                )}
+                {pathname === '/alevels' && (
+                    <Link
+                        to="/olevels"
+                        className="px-5 py-1 rounded-lg duration-500 text-theme hover:bg-theme hover:text-theme"
+                    >
+                        O Levels
+                    </Link>
+                )}
 
                 {/* Socials */}
                 <button

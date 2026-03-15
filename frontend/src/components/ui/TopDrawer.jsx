@@ -1,11 +1,14 @@
 // src/components/ui/TopDrawer.jsx
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Switch from "./Switch";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp, faTwitter, faInstagram, faPatreon } from '@fortawesome/free-brands-svg-icons';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export default function TopDrawer() {
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [openSocials, setOpenSocials] = useState(false);
     const [openDonate, setOpenDonate] = useState(false);
@@ -82,6 +85,26 @@ export default function TopDrawer() {
                         >
                             Home
                         </a>
+
+                        {/* Level switcher */}
+                        {pathname === '/olevels' && (
+                            <button
+                                onClick={() => { navigate('/alevels'); setOpen(false); }}
+                                className="w-full inline-flex justify-center items-center px-4 py-2 rounded-lg
+                                text-theme border border-theme hover:bg-theme font-body cursor-pointer"
+                            >
+                                A Levels
+                            </button>
+                        )}
+                        {pathname === '/alevels' && (
+                            <button
+                                onClick={() => { navigate('/olevels'); setOpen(false); }}
+                                className="w-full inline-flex justify-center items-center px-4 py-2 rounded-lg
+                                text-theme border border-theme hover:bg-theme font-body cursor-pointer"
+                            >
+                                O Levels
+                            </button>
+                        )}
 
                         {/* Socials (popover) */}
                         <div className="relative">
