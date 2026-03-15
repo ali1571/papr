@@ -91,10 +91,10 @@ function PanelWithToolbar({ label, url, emptyLabel, extraAction, msUrl, inUrl, s
       <div className="h-[85dvh]">
         {hasDualPdf ? (
           <div className="relative w-full h-full">
-            <div className={`absolute inset-0 ${showingInsert ? "invisible pointer-events-none" : ""}`}>
+            <div className={`absolute inset-0 ${showingInsert ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
               <PdfViewer fileUrl={msUrl} />
             </div>
-            <div className={`absolute inset-0 ${showingInsert ? "" : "invisible pointer-events-none"}`}>
+            <div className={`absolute inset-0 ${showingInsert ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
               <PdfViewer fileUrl={inUrl} />
             </div>
           </div>
