@@ -51,6 +51,12 @@ const oLevelFAQs = {
     { q: "Are O Level Pakistan Studies 2059 mark schemes free?", a: "Yes. pApr provides free Pakistan Studies 2059 mark schemes for every available year and session." },
     { q: "How do I access O Level Pakistan Studies past papers?", a: "Visit papr.site/olevels/pakistan-studies, choose your year, and view instantly." },
   ],
+  "History": [
+    { q: "Where can I find free O Level History 2147 past papers?", a: "pApr (papr.site) provides free O Level History 2147 past papers and mark schemes from 2018 to 2024." },
+    { q: "What is the subject code for O Level History?", a: "The subject code for O Level History is 2147, offered by Cambridge Assessment International Education (CAIE)." },
+    { q: "Are O Level History 2147 mark schemes free?", a: "Yes. pApr provides free History 2147 mark schemes for every available year and session." },
+    { q: "How do I access O Level History past papers?", a: "Visit papr.site/olevels/history, choose your year, and view instantly." },
+  ],
 };
 
 const aLevelFAQs = {
@@ -73,7 +79,7 @@ const aLevelFAQs = {
 const generalOLevelFAQs = [
   { q: "What are O Level past papers?", a: "O Level past papers are previous exam question papers from Cambridge Assessment International Education (CAIE). They are one of the most effective tools for exam preparation, helping students understand the exam format, question styles, and mark scheme expectations." },
   { q: "Are O Level past papers free on pApr?", a: "Yes. pApr provides completely free O Level past papers including question papers, mark schemes, and examiner reports for all available subjects and years." },
-  { q: "Which O Level subjects are available on pApr?", a: "pApr currently offers past papers for O Level Chemistry (5070), Physics (5054), Mathematics (4024), Computer Science (2210), Economics (2281), Islamiat (2058), and Pakistan Studies (2059)." },
+  { q: "Which O Level subjects are available on pApr?", a: "pApr currently offers past papers for O Level Chemistry (5070), Physics (5054), Mathematics (4024), Computer Science (2210), Economics (2281), Islamiat (2058), Pakistan Studies (2059), and History (2147)." },
   { q: "What years of O Level past papers are available?", a: "pApr provides O Level past papers from 2018 to 2024, covering both summer (May/June) and winter (October/November) sessions." },
   { q: "How do I use O Level past papers effectively?", a: "Practice under timed conditions, then mark your work using the mark scheme. Focus on examiner reports to understand common mistakes. pApr makes this easy by providing all three documents side by side." },
 ];
@@ -155,6 +161,14 @@ const oLevelMeta = {
     keywords:
       "pakistan studies 2059 past papers, o level pakistan studies past papers, 2059 mark scheme, pakistan studies 2059 2024, pakistan studies past papers, pkst past papers, o level pakistan studies 2025",
   },
+  "History": {
+    code: "2147",
+    title: "History 2147 Past Papers 2018–2024 | O Level | Free Download | pApr",
+    description:
+      "Free O Level History 2147 past papers and mark schemes from 2018 to 2024. Summer and winter sessions. pApr — fast access to CAIE Cambridge past papers.",
+    keywords:
+      "history 2147 past papers, o level history past papers, 2147 mark scheme, history 2147 2024, history 2147 2023, cambridge history past papers, o level history 2024",
+  },
 };
 
 const aLevelMeta = {
@@ -181,7 +195,7 @@ const defaultMeta = {
   olevels: {
     title: "O Level Past Papers 2018–2025 | Free IGCSE Download | pApr",
     description:
-      "Free O Level and IGCSE past papers for Chemistry 5070, Physics 5054, Maths 4024, Computer Science 2210, Economics 2281, Islamiat 2058, Pakistan Studies 2059. Question papers, mark schemes and examiner reports from 2018–2025. pApr.",
+      "Free O Level and IGCSE past papers for Chemistry 5070, Physics 5054, Maths 4024, Computer Science 2210, Economics 2281, Islamiat 2058, Pakistan Studies 2059, History 2147. Question papers, mark schemes and examiner reports from 2018–2025. pApr.",
     keywords:
       "o level past papers, igcse past papers, caie past papers, cambridge past papers, o level past papers 2024, o level past papers 2025, igcse past papers download, o level mark schemes, past papers free download",
     canonical: `${BASE_URL}/olevels`,
@@ -202,6 +216,14 @@ const defaultMeta = {
       "past papers, o level past papers, a level past papers, igcse past papers, caie past papers, cambridge past papers free download, past papers 2024 2025",
     canonical: BASE_URL,
   },
+  sayhi: {
+    title: "Say Hi | pApr",
+    description:
+      "Get in touch with the team behind pApr. Report a bug, request a subject, ask about tutoring, or just say hi.",
+    keywords:
+      "papr contact, papr feedback, o level tutoring lahore, caie past papers contact",
+    canonical: `${BASE_URL}/say-hi`,
+  },
 };
 
 export default function SEO({ page, subject, year, level }) {
@@ -209,6 +231,8 @@ export default function SEO({ page, subject, year, level }) {
 
   if (page === "home") {
     ({ title, description, keywords, canonical } = defaultMeta.home);
+  } else if (page === "sayhi") {
+    ({ title, description, keywords, canonical } = defaultMeta.sayhi);
   } else if (page === "olevels") {
     const subjectData = subject ? oLevelMeta[subject] : null;
     if (subjectData) {

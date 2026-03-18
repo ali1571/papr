@@ -26,7 +26,7 @@ const routes = [
   {
     path: "/olevels",
     title: "O Level Past Papers 2018–2025 | Free IGCSE Download | pApr",
-    description: "Free O Level and IGCSE past papers for Chemistry 5070, Physics 5054, Maths 4024, Computer Science 2210, Economics 2281, Islamiat 2058, Pakistan Studies 2059. Question papers, mark schemes and examiner reports. pApr.",
+    description: "Free O Level and IGCSE past papers for Chemistry 5070, Physics 5054, Maths 4024, Computer Science 2210, Economics 2281, Islamiat 2058, Pakistan Studies 2059, History 2147. Question papers, mark schemes and examiner reports. pApr.",
     canonical: `${BASE_URL}/olevels`,
   },
   {
@@ -44,6 +44,7 @@ const routes = [
   ...buildSubjectRoutes("olevels", "economics",       "Economics",       "2281", [2024,2023,2022,2021,2020,2019,2018]),
   ...buildSubjectRoutes("olevels", "islamiat",        "Islamiat",        "2058", [2024,2023,2022,2021,2020,2019,2018]),
   ...buildSubjectRoutes("olevels", "pakistan-studies","Pakistan Studies","2059", [2024,2023,2022,2021,2020,2019,2018]),
+  ...buildSubjectRoutes("olevels", "history",         "History",         "2147", [2024,2023,2022,2021,2020,2019,2018]),
 
   // A Level subjects
   ...buildSubjectRoutes("alevels", "computer-science","Computer Science","9618", [2025,2024,2023,2022,2021], "A Level"),

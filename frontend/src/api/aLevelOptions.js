@@ -3,11 +3,13 @@
 export const aLevelSubjectCodes = {
     "Computer Science": "9618",
     "Economics": "9708",
+
 };
 
 export const aLevelSubjects = [
     "Computer Science",
     "Economics",
+    "ADDING BAAKI SUBS BHI WAITTT"
 ];
 
 export const aLevelYearsBySubject = {

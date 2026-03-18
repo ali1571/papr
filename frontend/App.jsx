@@ -5,6 +5,7 @@ import Navbar from "./src/components/ui/Navbar.jsx";
 import LandingPage from "./src/pages/LandingPage.jsx";
 import OLevelsPage from "./src/pages/OLevelsPage.jsx";
 import ALevelsPage from "./src/pages/ALevelsPage.jsx";
+import SayHiPage from "./src/pages/SayHiPage.jsx";
 import { Worker } from "@react-pdf-viewer/core";
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
                   <Route path="/alevels" element={<ALevelsPage />} />
                   <Route path="/alevels/:subject" element={<ALevelsPage />} />
                   <Route path="/alevels/:subject/:year" element={<ALevelsPage />} />
+                  <Route path="/say-hi" element={<SayHiPage />} />
                 </Routes>
               </div>
             </main>

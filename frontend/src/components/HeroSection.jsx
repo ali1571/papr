@@ -65,7 +65,8 @@ export default function HeroSection({
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const handleSubjectChange = (newSubject) => {
+  const handleSubjectChange = (val) => {
+    const newSubject = val.split(" — ")[0];
     setSubject(newSubject);
     setYear("");
     if (newSubject && year) {
@@ -238,8 +239,8 @@ export default function HeroSection({
                 <div className="flex flex-col sm:flex-row gap-4 font-body">
                   <Dropdown
                     placeholder="Subject"
-                    items={subjects}
-                    value={subject}
+                    items={subjects.map(s => subjectCodes[s] ? `${s} — ${subjectCodes[s]}` : s)}
+                    value={subject && subjectCodes[subject] ? `${subject} — ${subjectCodes[subject]}` : subject}
                     onChange={handleSubjectChange}
                     className="w-full sm:flex-1"
                   />

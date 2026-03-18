@@ -9,6 +9,7 @@ export const subjects = [
     "Islamiat",
     "Computer Science",
     "Economics",
+    "History",
     "ADDING BAAKI SUBS BHI WAITTT"
 ];
 
@@ -20,6 +21,7 @@ export const subjectCodes = {
     "Economics": "2281",
     "Islamiat": "2058",
     "pkst": "2059",
+    "History": "2147",
 };
 
 // Years per subject (placeholder; reuse same years for now)
@@ -38,4 +40,5 @@ export const yearsBySubject = {
     "English Language": defaultYears,
     Urdu: defaultYears,
     "pkst": defaultYears,
+    "History": defaultYears,
 };

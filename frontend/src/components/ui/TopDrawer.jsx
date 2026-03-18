@@ -1,6 +1,6 @@
 // src/components/ui/TopDrawer.jsx
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import Switch from "./Switch";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp, faTwitter, faInstagram, faPatreon } from '@fortawesome/free-brands-svg-icons';
@@ -105,6 +105,16 @@ export default function TopDrawer() {
                                 O Levels
                             </button>
                         )}
+
+                        {/* Say Hi */}
+                        <Link
+                            to="/say-hi"
+                            onClick={() => setOpen(false)}
+                            className="w-full inline-flex justify-center items-center px-4 py-2 rounded-lg
+                            text-theme border border-theme hover:bg-theme font-body"
+                        >
+                            Say Hi
+                        </Link>
 
                         {/* Socials (popover) */}
                         <div className="relative">

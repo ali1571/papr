@@ -9,6 +9,7 @@ export const oLevelSlugs = {
   "economics":         "Economics",
   "islamiat":          "Islamiat",
   "pakistan-studies":  "pkst",
+  "history":           "History",
 };
 
 export const aLevelSlugs = {
