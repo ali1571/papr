@@ -67,9 +67,9 @@ export default function SayHiPage() {
         {/* ── 1. Intro ─────────────────────────────────────────────── */}
         <section>
           <p className="font-body text-base leading-relaxed" style={{ color: "var(--color-text)" }}>
-            I'm Alli — 21, still figuring things out honestly, but I built papr.site because past
+            I'm Ali — 21, still figuring things out honestly, but I built papr.site because past
             papers deserve better than clunky, ad-filled sites. It started as a small thing, just a
-            problem that needed fixing. It's still a small thing, but people use it, so I keep going.
+            problem that needed fixing. It's still a small thing, but students use it, so I keep going.
           </p>
         </section>
 
@@ -80,7 +80,7 @@ export default function SayHiPage() {
               Get in touch
             </h2>
             <p className="font-body text-sm leading-relaxed" style={{ color: "var(--color-text)", opacity: 0.65 }}>
-              "If something's broken, a subject is missing, or you just want to say hi — drop your actual email so I can get back to you. I read everything. Prefer to stay anonymous? Use the feedback button at the bottom of the O/A-levels pages."
+              "If something's broken, a subject is missing, or you just want to say hi — drop a message and I'll get back to you. I read everything. Prefer to stay anonymous? Use the feedback button at the bottom of the O/A-levels pages."
             </p>
           </div>
 
@@ -179,7 +179,7 @@ export default function SayHiPage() {
 
         <div className="max-w-2xl mx-auto px-2 mb-6">
           <p className="font-body text-sm" style={{ color: "var(--color-text)", opacity: 0.45 }}>
-            one more thing —
+            honorary mentions —
           </p>
         </div>
 
