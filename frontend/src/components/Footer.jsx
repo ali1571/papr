@@ -3,6 +3,8 @@ import emailjs from '@emailjs/browser';
 import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 
+const WA_LINK = "https://chat.whatsapp.com/Bv1bqqqzKn9ACam4vSL4LR?mode=ems_copy_t";
+
 export default function Footer() {
 
   const formRef = useRef(null);
@@ -111,6 +113,23 @@ export default function Footer() {
 
   return (
     <footer className="bg-theme text-theme py-10 mt-5 transition-colors duration-300">
+      {/* Community invite */}
+      <div className="flex flex-col items-center mb-8 gap-2">
+        <p className="font-heading text-base font-semibold text-theme">Study with the community</p>
+        <p className="font-body text-xs opacity-50 text-theme text-center max-w-xs leading-relaxed">
+          Join students on WhatsApp for paper drops, tips &amp; exam prep help.
+        </p>
+        <a
+          href={WA_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 inline-flex items-center gap-2 px-5 py-2 rounded-[10px] border border-theme text-theme hover:bg-[var(--hover-overlay)] transition-colors duration-300 font-body text-sm"
+        >
+          <i className="fa-brands fa-whatsapp" />
+          Join Free →
+        </a>
+      </div>
+
       {/* Social icons */}
       <div className="flex justify-center space-x-10 mb-6">
         <a href="https://chat.whatsapp.com/Bv1bqqqzKn9ACam4vSL4LR?mode=ems_copy_t" target="_blank" rel="noopener noreferrer" className="text-2xl transform transition-transform duration-300 hover:scale-125 hover:text-gray-300">

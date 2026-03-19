@@ -7,6 +7,7 @@ import OLevelsPage from "./src/pages/OLevelsPage.jsx";
 import ALevelsPage from "./src/pages/ALevelsPage.jsx";
 import SayHiPage from "./src/pages/SayHiPage.jsx";
 import { Worker } from "@react-pdf-viewer/core";
+import WhatsAppFloat from "./src/components/WhatsAppFloat.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -36,6 +37,7 @@ export default function App() {
           </div>
         </div>
       </div>
+      <WhatsAppFloat />
     </Worker>
   );
 }
