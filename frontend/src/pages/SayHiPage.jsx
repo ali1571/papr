@@ -179,7 +179,7 @@ export default function SayHiPage() {
 
         <div className="max-w-2xl mx-auto px-2 mb-6">
           <p className="font-body text-sm" style={{ color: "var(--color-text)", opacity: 0.45 }}>
-            honorary mentions —
+            honourable mentions —
           </p>
         </div>
 
