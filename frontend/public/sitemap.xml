@@ -381,6 +381,57 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- ===== O LEVEL — HISTORY 2147 ===== -->
+
+  <url>
+    <loc>https://papr.site/olevels/history</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://papr.site/olevels/history/2024</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://papr.site/olevels/history/2023</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://papr.site/olevels/history/2022</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://papr.site/olevels/history/2021</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://papr.site/olevels/history/2020</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://papr.site/olevels/history/2019</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://papr.site/olevels/history/2018</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- ===== A LEVEL — COMPUTER SCIENCE 9618 ===== -->
 
   <url>

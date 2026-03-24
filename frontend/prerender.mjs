@@ -35,6 +35,12 @@ const routes = [
     description: "Free A Level past papers for Computer Science 9618 and Economics 9708. Question papers and mark schemes from 2018–2025. pApr — the fastest way to access CAIE Cambridge A Level past papers.",
     canonical: `${BASE_URL}/alevels`,
   },
+  {
+    path: "/say-hi",
+    title: "Say Hi | pApr — Free CAIE Past Papers",
+    description: "Get in touch with the pApr team. We'd love to hear from you.",
+    canonical: `${BASE_URL}/say-hi`,
+  },
 
   // O Level subjects
   ...buildSubjectRoutes("olevels", "chemistry",       "Chemistry",       "5070", [2024,2023,2022,2021,2020,2019,2018]),

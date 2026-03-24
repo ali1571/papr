@@ -147,22 +147,7 @@ export default function SayHiPage() {
         </section>
 
         {/* ── 3. Tutoring ──────────────────────────────────────────── */}
-        <section
-          className="pl-4 font-body text-base leading-relaxed"
-          style={{
-            borderLeft: "2px solid var(--divider)",
-            color: "var(--color-text)",
-          }}
-        >
-          If you're stuck on a topic and past papers aren't cutting it, I occasionally help students
-          one-on-one with O/A-level prep. Reach out through the form if that's something you'd want.
-        </section>
-
-        {/* ── 4. Instagram volunteer ───────────────────────────────── */}
-        <section
-          className="pl-4 font-body text-base leading-relaxed"
-          style={{
-            borderLeft: "2px solid var(--divider)",
+        <sectionCLA
             color: "var(--color-text)",
           }}
         >
@@ -179,7 +164,8 @@ export default function SayHiPage() {
 
         <div className="max-w-2xl mx-auto px-2 mb-6">
           <p className="font-body text-sm" style={{ color: "var(--color-text)", opacity: 0.45 }}>
-            honourable mentions —
+            honourable
+             mentions —
           </p>
         </div>
 
