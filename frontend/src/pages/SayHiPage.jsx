@@ -147,7 +147,7 @@ export default function SayHiPage() {
         </section>
 
         {/* ── 3. Tutoring ──────────────────────────────────────────── */}
-        <sectionCLA
+        <section style={{
             color: "var(--color-text)",
           }}
         >
