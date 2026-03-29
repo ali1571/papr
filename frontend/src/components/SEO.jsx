@@ -84,6 +84,34 @@ const generalOLevelFAQs = [
   { q: "How do I use O Level past papers effectively?", a: "Practice under timed conditions, then mark your work using the mark scheme. Focus on examiner reports to understand common mistakes. pApr makes this easy by providing all three documents side by side." },
 ];
 
+// Notes meta — targets "o level [subject] notes", "[topic] notes o level" queries
+const notesMeta = {
+  history: {
+    name: "History",
+    code: "2059",
+    description: "Free O Level History notes organised by section and topic. Curated, exam-focused revision notes for Cambridge 2059.",
+    keywords: "o level history notes, history 2059 notes, pakistan studies history notes, caie history revision notes",
+  },
+  islamiat: {
+    name: "Islamiat",
+    code: "2058",
+    description: "Free O Level Islamiat 2058 notes for Paper 1 and Paper 2. Concise, exam-focused revision notes for Cambridge CAIE.",
+    keywords: "o level islamiat notes, islamiat 2058 notes, islamiat paper 1 notes, islamiat paper 2 notes, caie islamiat revision",
+  },
+  geography: {
+    name: "Geography",
+    code: "2217",
+    description: "Free O Level Geography notes by topic. Concise, exam-focused revision notes for Cambridge CAIE.",
+    keywords: "o level geography notes, geography 2217 notes, caie geography revision notes, o level geo notes",
+  },
+  "computer-science": {
+    name: "Computer Science",
+    code: "2210",
+    description: "Free O Level Computer Science 2210 notes for Paper 1 topics. Exam-focused revision notes for Cambridge CAIE.",
+    keywords: "o level computer science notes, cs 2210 notes, computer science paper 1 notes, caie cs notes, o level cs revision",
+  },
+};
+
 const generalALevelFAQs = [
   { q: "What are A Level past papers?", a: "A Level past papers are previous exam papers from Cambridge Assessment International Education (CAIE) for Advanced Level qualifications. They are essential for revision and understanding exam expectations." },
   { q: "Are A Level past papers free on pApr?", a: "Yes. pApr provides completely free A Level past papers including question papers and mark schemes for all available subjects." },
@@ -224,9 +252,17 @@ const defaultMeta = {
       "papr contact, papr feedback, o level tutoring lahore, caie past papers contact",
     canonical: `${BASE_URL}/say-hi`,
   },
+  notes: {
+    title: "O Level Notes | Free Revision Notes | pApr",
+    description:
+      "Free curated O Level revision notes for History, Islamiat, Geography and Computer Science. Exam-focused, topic-by-topic. pApr.",
+    keywords:
+      "o level notes, free revision notes, o level study notes, caie notes, cambridge notes, islamiat notes, computer science notes, history notes, geography notes",
+    canonical: `${BASE_URL}/notes`,
+  },
 };
 
-export default function SEO({ page, subject, year, level }) {
+export default function SEO({ page, subject, year, level, section, topic }) {
   let title, description, keywords, canonical, structuredData, faqSchema;
 
   if (page === "home") {
@@ -266,6 +302,32 @@ export default function SEO({ page, subject, year, level }) {
     } else {
       ({ title, description, keywords, canonical } = defaultMeta.olevels);
       faqSchema = buildFAQSchema(generalOLevelFAQs);
+    }
+  } else if (page === "notes") {
+    // subject = slug (e.g. "computer-science"), section = "p1"/"section-1", topic = topic name string
+    const sm = subject ? notesMeta[subject] : null;
+    if (sm && topic) {
+      // Deepest level: specific topic note
+      const sectionLabel = section ? ` · ${section.toUpperCase()}` : "";
+      title       = `${topic} Notes | ${sm.name}${sectionLabel} | O Level ${sm.code} | pApr`;
+      description = `Free O Level ${sm.name} ${sm.code} notes on ${topic}. Concise, exam-focused revision for Cambridge CAIE students. pApr.`;
+      keywords    = `${topic.toLowerCase()} notes o level, ${sm.name.toLowerCase()} ${topic.toLowerCase()} notes, ${sm.keywords}`;
+      canonical   = section
+        ? `${BASE_URL}/notes/${subject}/${section}/${slugify(topic)}`
+        : `${BASE_URL}/notes/${subject}/${slugify(topic)}`;
+    } else if (sm && section) {
+      const sectionLabel = section.toUpperCase();
+      title       = `${sm.name} ${sectionLabel} Notes | O Level ${sm.code} | pApr`;
+      description = `Free O Level ${sm.name} ${sm.code} ${sectionLabel} revision notes. Topic-by-topic, exam-focused. pApr.`;
+      keywords    = sm.keywords;
+      canonical   = `${BASE_URL}/notes/${subject}/${section}`;
+    } else if (sm) {
+      title       = `${sm.name} Notes | O Level ${sm.code} | Free Revision | pApr`;
+      description = sm.description;
+      keywords    = sm.keywords;
+      canonical   = `${BASE_URL}/notes/${subject}`;
+    } else {
+      ({ title, description, keywords, canonical } = defaultMeta.notes);
     }
   } else if (page === "alevels") {
     const subjectData = subject ? aLevelMeta[subject] : null;

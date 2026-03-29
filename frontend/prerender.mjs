@@ -14,6 +14,58 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, "dist");
 const BASE_URL = "https://papr.site";
 
+// ─── Notes structure (kept in sync with notesData.js) ────────────────────────
+
+const notesStructure = {
+  history: {
+    name: "History", code: "2059",
+    groups: [
+      { slug: "section-1", label: "Section 1" },
+      { slug: "section-2", label: "Section 2" },
+      { slug: "section-3", label: "Section 3" },
+    ],
+  },
+  islamiat: {
+    name: "Islamiat", code: "2058",
+    groups: [
+      { slug: "p1", label: "Paper 1" },
+      { slug: "p2", label: "Paper 2" },
+    ],
+  },
+  geography: {
+    name: "Geography", code: "2217",
+    groups: [],
+  },
+  "computer-science": {
+    name: "Computer Science", code: "2210",
+    groups: [
+      { slug: "p1", label: "Paper 1" },
+      { slug: "p2", label: "Paper 2" },
+    ],
+  },
+};
+
+function buildNotesRoutes() {
+  const entries = [];
+  for (const [slug, data] of Object.entries(notesStructure)) {
+    entries.push({
+      path: `/notes/${slug}`,
+      title: `${data.name} Notes | O Level ${data.code} | Free Revision | pApr`,
+      description: `Free O Level ${data.name} ${data.code} revision notes. Curated, exam-focused, topic-by-topic. pApr.`,
+      canonical: `${BASE_URL}/notes/${slug}`,
+    });
+    for (const g of data.groups) {
+      entries.push({
+        path: `/notes/${slug}/${g.slug}`,
+        title: `${data.name} ${g.label} Notes | O Level ${data.code} | pApr`,
+        description: `Free O Level ${data.name} ${data.code} ${g.label} revision notes. Concise, exam-focused. pApr.`,
+        canonical: `${BASE_URL}/notes/${slug}/${g.slug}`,
+      });
+    }
+  }
+  return entries;
+}
+
 // ─── Meta data per route ──────────────────────────────────────────────────────
 
 const routes = [
@@ -55,6 +107,15 @@ const routes = [
   // A Level subjects
   ...buildSubjectRoutes("alevels", "computer-science","Computer Science","9618", [2025,2024,2023,2022,2021], "A Level"),
   ...buildSubjectRoutes("alevels", "economics",       "Economics",       "9708", [2025,2024,2023,2022,2021,2020,2019,2018], "A Level"),
+
+  // Notes — subject + group level (topic routes added per topic in notesData)
+  {
+    path: "/notes",
+    title: "O Level Notes | Free Revision Notes | pApr",
+    description: "Free curated O Level revision notes for History, Islamiat, Geography and Computer Science. Exam-focused, topic-by-topic. pApr.",
+    canonical: `${BASE_URL}/notes`,
+  },
+  ...buildNotesRoutes(),
 ];
 
 function buildSubjectRoutes(level, slug, name, code, years, levelLabel = "O Level") {

@@ -6,6 +6,7 @@ import LandingPage from "./src/pages/LandingPage.jsx";
 import OLevelsPage from "./src/pages/OLevelsPage.jsx";
 import ALevelsPage from "./src/pages/ALevelsPage.jsx";
 import SayHiPage from "./src/pages/SayHiPage.jsx";
+import NotesPage from "./src/pages/NotesPage.jsx";
 import { Worker } from "@react-pdf-viewer/core";
 import WhatsAppFloat from "./src/components/WhatsAppFloat.jsx";
 
@@ -29,6 +30,10 @@ export default function App() {
                   <Route path="/alevels" element={<ALevelsPage />} />
                   <Route path="/alevels/:subject" element={<ALevelsPage />} />
                   <Route path="/alevels/:subject/:year" element={<ALevelsPage />} />
+                  <Route path="/notes" element={<NotesPage />} />
+                  <Route path="/notes/:subject" element={<NotesPage />} />
+                  <Route path="/notes/:subject/:section" element={<NotesPage />} />
+                  <Route path="/notes/:subject/:section/:topic" element={<NotesPage />} />
                   <Route path="/say-hi" element={<SayHiPage />} />
                 </Routes>
               </div>

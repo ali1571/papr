@@ -74,7 +74,9 @@ export default function TopDrawer() {
 
                 {/* Row stays the same width as before (nav + spacer) */}
                 <div className="mt-3 flex items-start gap-3">
-                    {/* Pills fill remaining width */}
+                    {/* Pills fill remain
+
+                        ing width */}
                     <nav className="flex-1 grid grid-cols-2 gap-3 min-w-0">
                         {/* Home */}
                         <a
@@ -105,6 +107,16 @@ export default function TopDrawer() {
                                 O Levels
                             </button>
                         )}
+
+                        {/* Notes */}
+                        <Link
+                            to="/notes"
+                            onClick={() => setOpen(false)}
+                            className="w-full inline-flex justify-center items-center px-4 py-2 rounded-lg
+                            text-theme border border-theme hover:bg-theme font-body"
+                        >
+                            Notes
+                        </Link>
 
                         {/* Say Hi */}
                         <Link

@@ -117,6 +117,13 @@ export default function Navbar() {
                 )}
 
                 <Link
+                    to="/notes"
+                    className="px-5 py-1 rounded-lg duration-500 text-theme hover:bg-theme hover:text-theme"
+                >
+                    Notes
+                </Link>
+
+                <Link
                     to="/say-hi"
                     className="px-5 py-1 rounded-lg duration-500 text-theme hover:bg-theme hover:text-theme"
                 >
