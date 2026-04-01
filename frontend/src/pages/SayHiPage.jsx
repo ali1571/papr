@@ -84,6 +84,29 @@ export default function SayHiPage() {
             </p>
           </div>
 
+          {/* ── 3. Tutoring ──────────────────────────────────────────── */}
+          <div className="space-y-2">
+            <p className="font-heading text-xs font-semibold uppercase tracking-widest" style={{ color: "#ffffff" }}>
+              Beyond Papers
+            </p>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "var(--color-text)", opacity: 0.6 }}>
+              If you're stuck on a topic and past papers aren't cutting it, I occasionally help students
+              one-on-one with O/A-level prep. Reach out through the form if that's something you'd want.
+            </p>
+          </div>
+
+          {/* ── 4. Instagram volunteer callout ───────────────────────── */}
+          <div className="space-y-2">
+            <p className="font-heading text-xs font-semibold uppercase tracking-widest" style={{ color: "#ffffff" }}>
+              Run the Instagram
+            </p>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "var(--color-text)", opacity: 0.6 }}>
+              Also — if you're a student who's into making reels or posting study content, papr.site's
+              Instagram is basically up for grabs. Would be cool to have someone run it who actually gets
+              the student side of things. Just mention it in your message.
+            </p>
+          </div>
+
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
             <div>
               <input
@@ -146,15 +169,6 @@ export default function SayHiPage() {
           </form>
         </section>
 
-        {/* ── 3. Tutoring ──────────────────────────────────────────── */}
-        <section style={{
-            color: "var(--color-text)",
-          }}
-        >
-          Also — if you're a student who's into making reels or posting study content, papr.site's
-          Instagram is basically up for grabs. Would be cool to have someone run it who actually gets
-          the student side of things. Just mention it in your message.
-        </section>
 
       </div>
 
