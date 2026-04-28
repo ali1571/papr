@@ -71,7 +71,7 @@ export default function HeroSection({
     setYear("");
     if (newSubject && year) {
       queryClient.prefetchQuery({
-        queryKey: ["papers", newSubject, year],
+        queryKey: [levelLabel,"papers", newSubject, year],
         queryFn: () => fetchPapersFn(newSubject, year),
       });
     }
@@ -81,7 +81,7 @@ export default function HeroSection({
     setYear(newYear);
     if (subject && newYear) {
       queryClient.prefetchQuery({
-        queryKey: ["papers", subject, newYear],
+        queryKey: [levelLabel, "papers", subject, newYear],
         queryFn: () => fetchPapersFn(subject, newYear),
       });
     }

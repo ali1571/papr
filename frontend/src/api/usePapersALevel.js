@@ -5,7 +5,7 @@ import { fetchPapersALevel } from "./papersALevel.js";
 
 export function usePapersALevel(subject, year, { enabled = false } = {}) {
     return useQuery({
-        queryKey: ["papers-alevel", subject, year],
+        queryKey: ["A-Levels", "papers-alevel", subject, year],
         queryFn: () => fetchPapersALevel(subject, year),
         enabled: false,
         staleTime: 0,
