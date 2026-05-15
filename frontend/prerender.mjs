@@ -127,14 +127,48 @@ function buildSubjectRoutes(level, slug, name, code, years, levelLabel = "O Leve
       title: `${name} ${code} Past Papers ${yearRange} | ${levelLabel} | Free Download | pApr`,
       description: `Free ${levelLabel} ${name} ${code} past papers, mark schemes and examiner reports ${yearRange}. Summer and winter sessions. pApr — instant CAIE Cambridge past papers.`,
       canonical: `${BASE_URL}${levelPath}/${slug}`,
+      bodyContent: `
+        <h1>Cambridge ${levelLabel} ${name} (${code}) Past Papers</h1>
+        <p>Download free Cambridge ${levelLabel} ${name} ${code} past papers, mark schemes
+        and examiner reports from ${yearRange}. All sessions included — May/June and
+        October/November. No signup required.</p>
+        <h2>Available Years</h2>
+        <ul>${years.map(y => `<li><a href="${BASE_URL}${levelPath}/${slug}/${y}">${name} ${code} Past Papers ${y}</a></li>`).join('')}</ul>
+        <h2>Frequently Asked Questions</h2>
+        <h3>Are ${name} ${code} past papers free on papr.site?</h3>
+        <p>Yes. All ${levelLabel} ${name} ${code} past papers are completely free with no signup required.</p>
+        <h3>Does papr.site have ${name} ${code} mark schemes?</h3>
+        <p>Yes. Every paper includes the corresponding mark scheme and examiner report where available.</p>
+        <h3>Which years are available for ${name} ${code}?</h3>
+        <p>papr.site has ${name} ${code} past papers from ${years[years.length-1]} to ${years[0]},
+        covering both May/June and October/November series.</p>
+      `,
     },
   ];
   for (const year of years) {
     entries.push({
       path: `${levelPath}/${slug}/${year}`,
       title: `${name} ${code} ${year} Past Paper | ${levelLabel} | Free Download | pApr`,
-      description: `Free ${levelLabel} ${name} ${code} ${year} past paper, mark scheme and examiner report. Summer and winter sessions. pApr — instant CAIE Cambridge past papers.`,
+      description: `Free ${levelLabel} ${name} ${code} ${year} past paper, mark scheme and examiner report. pApr.`,
       canonical: `${BASE_URL}${levelPath}/${slug}/${year}`,
+      bodyContent: `
+        <h1>Cambridge ${levelLabel} ${name} (${code}) ${year} Past Papers</h1>
+        <p>Download free Cambridge ${levelLabel} ${name} ${code} ${year} past papers including
+        mark schemes and examiner reports. Covers May/June ${year} and October/November ${year} sessions.
+        No signup required.</p>
+        <h2>Papers Available for ${year}</h2>
+        <ul>
+          <li>${name} ${code} ${year} Question Paper — May/June</li>
+          <li>${name} ${code} ${year} Mark Scheme — May/June</li>
+          <li>${name} ${code} ${year} Question Paper — October/November</li>
+          <li>${name} ${code} ${year} Mark Scheme — October/November</li>
+        </ul>
+        <h2>Frequently Asked Questions</h2>
+        <h3>Are ${name} ${code} ${year} papers free?</h3>
+        <p>Yes. All papers on papr.site are completely free with no account or signup required.</p>
+        <h3>Does the ${year} ${name} paper include mark schemes?</h3>
+        <p>Yes. The mark scheme and examiner report for ${name} ${code} ${year} are available on papr.site.</p>
+      `,
     });
   }
   return entries;
@@ -144,7 +178,7 @@ function buildSubjectRoutes(level, slug, name, code, years, levelLabel = "O Leve
 
 const template = fs.readFileSync(path.join(DIST, "index.html"), "utf-8");
 
-function injectMeta(html, { title, description, canonical }) {
+function injectMeta(html, { title, description, canonical, bodyContent }) {
   // Replace title
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`);
 
@@ -167,6 +201,16 @@ function injectMeta(html, { title, description, canonical }) {
   } else {
     html = html.replace("</head>", `  <link rel="canonical" href="${canonical}" />\n</head>`);
   }
+
+  // Body content injection
+  if (bodyContent) {
+    html = html.replace(
+      '<div id="root"></div>',
+      `<div id="root"></div>\n<div id="seo-content" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden">${bodyContent}</div>`
+    );
+  }
+
+  return html;
 
   // OG tags
   html = html.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${title}" />`);

@@ -6,6 +6,10 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY
 )
+// In papers.js
+console.log("O-LEVEL DB CONNECTED TO:", import.meta.env.VITE_SUPABASE_URL);
+
+
 
 function transformToNested(allFiles) {
   const result = { subjects: [] }
