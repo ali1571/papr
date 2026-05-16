@@ -79,8 +79,6 @@
 
 <body>
   <div id="root"></div>
-  <!-- index.html, inside <head> (after Tailwind CSS but before your app mounts) -->
-  <script type="module" src="/main.jsx"></script>
 
   <script>
     const saved = localStorage.getItem('theme');
@@ -92,6 +90,8 @@
     }
     document.documentElement.setAttribute('data-theme', theme);
   </script>
+
+  <script type="module" src="/main.jsx"></script>
 </body>
 
 </html>
