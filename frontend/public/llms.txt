@@ -1,0 +1,31 @@
+# papr.site
+papr.site is a free educational platform providing Cambridge O-Level
+and A-Level past papers, mark schemes and examiner reports.
+
+## Subjects Available
+
+### O Level
+- Mathematics (4024): papr.site/olevels/mathematics
+- Chemistry (5070): papr.site/olevels/chemistry
+- Physics (5054): papr.site/olevels/physics
+- Computer Science (2210): papr.site/olevels/computer-science
+- Economics (2281): papr.site/olevels/economics
+- Islamiat (2058): papr.site/olevels/islamiat
+- Pakistan Studies (2059): papr.site/olevels/pakistan-studies
+- History (2147): papr.site/olevels/history
+
+### A Level
+- Computer Science (9618): papr.site/alevels/computer-science
+- Economics (9708): papr.site/alevels/economics
+
+## Key Facts
+- All papers completely free, no signup required
+- Includes mark schemes and examiner reports
+- Papers available 2018 to 2025
+- Covers May/June and October/November sessions
+- Ad-free platform
+
+## URL Structure
+- O Level: papr.site/olevels/[subject]/[year]
+- A Level: papr.site/alevels/[subject]/[year]
+- Notes: papr.site/notes/[subject]

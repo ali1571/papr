@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig({
   plugins: [
     react(),
-    visualizer({ open: true, gzipSize: true })
+    tailwindcss(),
   ],
   build: {
     rollupOptions: {
@@ -19,7 +18,6 @@ export default defineConfig({
             '@fortawesome/react-fontawesome',
             '@fortawesome/free-solid-svg-icons',
             '@fortawesome/free-brands-svg-icons',
-
           ],
         }
       }

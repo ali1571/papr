@@ -179,10 +179,10 @@ function buildSubjectRoutes(level, slug, name, code, years, levelLabel = "O Leve
 const template = fs.readFileSync(path.join(DIST, "index.html"), "utf-8");
 
 function injectMeta(html, { title, description, canonical, bodyContent }) {
-  // Replace title
+  // Title
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`);
 
-  // Replace or inject description
+  // Description
   if (html.includes('name="description"')) {
     html = html.replace(
       /<meta name="description"[^>]*>/,
@@ -192,7 +192,7 @@ function injectMeta(html, { title, description, canonical, bodyContent }) {
     html = html.replace("</head>", `  <meta name="description" content="${description}" />\n</head>`);
   }
 
-  // Replace or inject canonical
+  // Canonical
   if (html.includes('rel="canonical"')) {
     html = html.replace(
       /<link rel="canonical"[^>]*>/,
@@ -202,16 +202,6 @@ function injectMeta(html, { title, description, canonical, bodyContent }) {
     html = html.replace("</head>", `  <link rel="canonical" href="${canonical}" />\n</head>`);
   }
 
-  // Body content injection
-  if (bodyContent) {
-    html = html.replace(
-      '<div id="root"></div>',
-      `<div id="root"></div>\n<div id="seo-content" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden">${bodyContent}</div>`
-    );
-  }
-
-  return html;
-
   // OG tags
   html = html.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${title}" />`);
   html = html.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${description}" />`);
@@ -220,6 +210,46 @@ function injectMeta(html, { title, description, canonical, bodyContent }) {
   // Twitter tags
   html = html.replace(/<meta name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${title}" />`);
   html = html.replace(/<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${description}" />`);
+
+  // Body content
+  if (bodyContent) {
+    html = html.replace(
+      '<div id="root"></div>',
+      `<div id="root"></div>\n<div id="seo-content" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden">${bodyContent}</div>`
+    );
+  }
+
+  // Schema JSON-LD
+  const isALevel = canonical.includes('/alevels/');
+  const isOLevel = canonical.includes('/olevels/');
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": isALevel || isOLevel ? ["WebPage", "LearningResource"] : "WebPage",
+        "name": title,
+        "description": description,
+        "url": canonical,
+        ...(isALevel || isOLevel ? {
+          "educationalLevel": isALevel ? "A-Level" : "O-Level",
+          "provider": {
+            "@type": "Organization",
+            "name": "Cambridge Assessment International Education"
+          }
+        } : {}),
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "papr.site",
+          "url": "https://papr.site"
+        }
+      }
+    ]
+  };
+
+  html = html.replace(
+    '</head>',
+    `  <script type="application/ld+json">${JSON.stringify(schema)}</script>\n</head>`
+  );
 
   return html;
 }
