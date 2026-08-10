@@ -5,6 +5,17 @@ import SEO from "../components/SEO.jsx";
 import Dropdown from "../components/ui/DropDown.jsx";
 import quotes from "../api/quoteList.js";
 
+/* ── fetch topic HTML content ─────────────────────────────────────────────── */  // ← ADDED
+async function fetchTopicContent(subject, paper, topicSlug) {                    // ← ADDED
+  try {                                                                          // ← ADDED
+    const res = await fetch(`/content/${subject}/${paper}/${topicSlug}.html`);   // ← ADDED
+    if (!res.ok) throw new Error("Not found");                                   // ← ADDED
+    return await res.text();                                                     // ← ADDED
+  } catch {                                                                      // ← ADDED
+    return "<p>Notes for this topic are being added. Check back soon!</p>";      // ← ADDED
+  }                                                                              // ← ADDED
+}                                                                                // ← ADDED
+
 /* ── topic row button ─────────────────────────────────────────────────────── */
 const RowBtn = styled.button`
   display: flex;
@@ -47,7 +58,7 @@ const RowBtn = styled.button`
 `;
 
 const NoteContent = styled.div`
-  font-family: var(--font-body, sans-serif);
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 0.9rem;
   line-height: 1.8;
   color: var(--color-text);
@@ -61,6 +72,7 @@ const NoteContent = styled.div`
   strong { font-weight: 600; }
   hr { border: none; border-top: 1px solid var(--divider); margin: 1.5rem 0; }
 `;
+
 
 const Divider = () => (
   <div className="mx-auto w-[95%] h-px my-10" style={{ backgroundColor: "var(--divider)" }} />
@@ -80,6 +92,9 @@ export default function NotesPage() {
   const [selectedTopic,   setSelectedTopic]   = useState(null);
   const [dotLit,          setDotLit]          = useState(false);
   const [dotHovered,      setDotHovered]      = useState(false);
+
+  const [topicContent, setTopicContent] = useState("");          // ← ADDED
+  const [loadingContent, setLoadingContent] = useState(false);     // ← ADDED
 
   const topicsRef  = useRef(null);
   const contentRef = useRef(null);
@@ -131,6 +146,20 @@ export default function NotesPage() {
       setTimeout(() => contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
     }
   }, [selectedTopic]);
+
+  /* fetch content when topic changes */                           // ← ADDED
+  useEffect(() => {                                              // ← ADDED
+    if (!selectedSubject || !selectedPaper || !selectedTopic) {  // ← ADDED
+      setTopicContent("");                                       // ← ADDED
+      return;                                                    // ← ADDED
+    }                                                            // ← ADDED
+    setLoadingContent(true);                                     // ← ADDED
+    fetchTopicContent(selectedSubject, selectedPaper, selectedTopic)  // ← ADDED
+      .then((html) => {                                          // ← ADDED
+        setTopicContent(html);                                   // ← ADDED
+        setLoadingContent(false);                                // ← ADDED
+      });                                                        // ← ADDED
+  }, [selectedSubject, selectedPaper, selectedTopic]);            // ← ADDED
 
   /* derived data */
   const subjectMeta  = selectedSubject ? noteSubjects.find(s => s.slug === selectedSubject) : null;
@@ -298,18 +327,72 @@ export default function NotesPage() {
               {group.comingSoonText}
             </p>
           ) : (
-            <div className="flex flex-col gap-2 mx-auto" style={{ maxWidth: "320px" }}>
-              {group.topics?.map((t) => (
-                <RowBtn
-                  key={t.slug}
-                  $active={selectedTopic === t.slug}
-                  data-active={selectedTopic === t.slug || undefined}
-                  onClick={() => setSelectedTopic(t.slug)}
-                >
-                  <span className="font-heading text-sm font-semibold tracking-wide">{t.name}</span>
-                  <span className="font-body text-xs opacity-40">→</span>
-                </RowBtn>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {/* ── Section 1 ── */}
+              <div className="flex flex-col gap-2">
+                <h3 className="font-heading text-sm font-bold opacity-40 mb-2 tracking-widest uppercase">
+                  Section 1
+                </h3>
+                {group.topics
+                  ?.filter((t) => t.slug.startsWith("s1-"))
+                  .map((t) => (
+                    <RowBtn
+                      key={t.slug}
+                      $active={selectedTopic === t.slug}
+                      data-active={selectedTopic === t.slug || undefined}
+                      onClick={() => setSelectedTopic(t.slug)}
+                    >
+                      <span className="font-heading text-sm font-semibold tracking-wide">
+                        {t.name.replace("S1: ", "")}
+                      </span>
+                      <span className="font-body text-xs opacity-40">→</span>
+                    </RowBtn>
+                  ))}
+              </div>
+
+              {/* ── Section 2 ── */}
+              <div className="flex flex-col gap-2">
+                <h3 className="font-heading text-sm font-bold opacity-40 mb-2 tracking-widest uppercase">
+                  Section 2
+                </h3>
+                {group.topics
+                  ?.filter((t) => t.slug.startsWith("s2-"))
+                  .map((t) => (
+                    <RowBtn
+                      key={t.slug}
+                      $active={selectedTopic === t.slug}
+                      data-active={selectedTopic === t.slug || undefined}
+                      onClick={() => setSelectedTopic(t.slug)}
+                    >
+                      <span className="font-heading text-sm font-semibold tracking-wide">
+                        {t.name.replace("S2: ", "")}
+                      </span>
+                      <span className="font-body text-xs opacity-40">→</span>
+                    </RowBtn>
+                  ))}
+              </div>
+
+              {/* ── Section 3 ── */}
+              <div className="flex flex-col gap-2">
+                <h3 className="font-heading text-sm font-bold opacity-40 mb-2 tracking-widest uppercase">
+                  Section 3
+                </h3>
+                {group.topics
+                  ?.filter((t) => t.slug.startsWith("s3-"))
+                  .map((t) => (
+                    <RowBtn
+                      key={t.slug}
+                      $active={selectedTopic === t.slug}
+                      data-active={selectedTopic === t.slug || undefined}
+                      onClick={() => setSelectedTopic(t.slug)}
+                    >
+                      <span className="font-heading text-sm font-semibold tracking-wide">
+                        {t.name.replace("S3: ", "")}
+                      </span>
+                      <span className="font-body text-xs opacity-40">→</span>
+                    </RowBtn>
+                  ))}
+              </div>
             </div>
           )}
         </section>
@@ -326,7 +409,11 @@ export default function NotesPage() {
             <h1 className="font-heading text-3xl font-bold tracking-tight text-theme mb-8">
               {topic.name}
             </h1>
-            <NoteContent dangerouslySetInnerHTML={{ __html: topic.content }} />
+            {loadingContent ? (                                    // ← ADDED
+              <p className="font-body opacity-50">Loading notes...</p>  // ← ADDED
+            ) : (                                                   // ← ADDED
+              <NoteContent dangerouslySetInnerHTML={{ __html: topicContent }} />  // ← CHANGED from topic.content
+            )}                                                      // ← ADDED
           </section>
         </>
       )}
