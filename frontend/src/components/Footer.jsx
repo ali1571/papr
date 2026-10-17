@@ -112,7 +112,7 @@ export default function Footer() {
 
 
   return (
-    <footer className="bg-theme text-theme py-10 mt-5 transition-colors duration-300">
+    <footer className="bg-theme text-theme pt-10 pb-0 mt-5 transition-colors duration-300">
       {/* Community invite */}
       <div className="flex flex-col items-center mb-8 gap-2">
         <p className="font-heading text-base font-semibold text-theme">Study with the community</p>
@@ -170,11 +170,28 @@ export default function Footer() {
       </form>
 
       {/* Copyright */}
-      <div className="font-heading text-center text-sm">
+      <div className="font-heading mb-8 text-center text-sm">
         Copyright © {new Date().getFullYear()} Papr
         <br />
         All Rights Reserved, Developed by Ali.
       </div>
+
+
+    <div className="w-full relative overflow-hidden leading-none">
+      <img
+        src="/footer-illustration.png"
+        alt=""
+        className="w-full block object-cover"
+        style={{
+          maxHeight: '300px',
+          maxWidth:  '3000px',
+          opacity: 0.8,
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 70%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 70%)'
+        }}
+      />
+    </div>
+
     </footer>
   );
 }

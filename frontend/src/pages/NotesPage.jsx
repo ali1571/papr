@@ -5,16 +5,22 @@ import SEO from "../components/SEO.jsx";
 import Dropdown from "../components/ui/DropDown.jsx";
 import quotes from "../api/quoteList.js";
 
+
+
+
 /* ── fetch topic HTML content ─────────────────────────────────────────────── */  // ← ADDED
-async function fetchTopicContent(subject, paper, topicSlug) {                    // ← ADDED
-  try {                                                                          // ← ADDED
-    const res = await fetch(`/content/${subject}/${paper}/${topicSlug}.html`);   // ← ADDED
-    if (!res.ok) throw new Error("Not found");                                   // ← ADDED
-    return await res.text();                                                     // ← ADDED
-  } catch {                                                                      // ← ADDED
-    return "<p>Notes for this topic are being added. Check back soon!</p>";      // ← ADDED
-  }                                                                              // ← ADDED
-}                                                                                // ← ADDED
+async function fetchTopicContent(subject, paper, topicSlug, parentSlug = null) {
+  try {
+    const path = parentSlug
+      ? `/content/${subject}/${paper}/${parentSlug}/${topicSlug}.html`
+      : `/content/${subject}/${paper}/${topicSlug}.html`;
+    const res = await fetch(path);
+    if (!res.ok) throw new Error("Not found");
+    return await res.text();
+  } catch {
+    return "<p>Notes for this topic are being added. Check back soon!</p>";
+  }
+}                                                                               // ← ADDED
 
 /* ── topic row button ─────────────────────────────────────────────────────── */
 const RowBtn = styled.button`
@@ -95,6 +101,7 @@ export default function NotesPage() {
 
   const [topicContent, setTopicContent] = useState("");          // ← ADDED
   const [loadingContent, setLoadingContent] = useState(false);     // ← ADDED
+  const [expandedFolder, setExpandedFolder] = useState(null);
 
   const topicsRef  = useRef(null);
   const contentRef = useRef(null);
@@ -141,11 +148,36 @@ export default function NotesPage() {
     }
   }, [selectedSubject, selectedPaper]);
 
-  useEffect(() => {
-    if (selectedTopic) {
-      setTimeout(() => contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
-    }
-  }, [selectedTopic]);
+
+    /* scroll to content AFTER it loads */                           // ← CHANGED
+    useEffect(() => {                                                 // ← CHANGED
+      if (!loadingContent && topicContent && contentRef.current) {   // ← CHANGED
+        setTimeout(() => contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);  // ← CHANGED
+      }                                                                // ← CHANGED
+    }, [loadingContent, topicContent]);                                // ← CHANGED
+
+    /* fetch content when topic changes */
+    useEffect(() => {
+      if (!selectedSubject || !selectedPaper || !selectedTopic) {
+        setTopicContent("");
+        return;
+      }
+
+      // Check if it's a sub-topic (contains "/")
+      const isSubTopic = selectedTopic.includes("/");
+      const topicSlug = isSubTopic ? selectedTopic.split("/")[1] : selectedTopic;
+      const parentSlug = isSubTopic ? selectedTopic.split("/")[0] : null;
+
+      console.log("Fetching:", { selectedTopic, isSubTopic, topicSlug, parentSlug });
+
+      setLoadingContent(true);
+      fetchTopicContent(selectedSubject, selectedPaper, topicSlug, parentSlug)
+        .then((html) => {
+          console.log("Fetched HTML length:", html.length); // ← ADD
+          setTopicContent(html);
+          setLoadingContent(false);
+        });
+    }, [selectedSubject, selectedPaper, selectedTopic]);
 
   /* fetch content when topic changes */                           // ← ADDED
   useEffect(() => {                                              // ← ADDED
@@ -167,9 +199,23 @@ export default function NotesPage() {
   const group        = selectedPaper && subjectData
     ? subjectData.groups?.find(g => g.slug === selectedPaper)
     : null;
-  const topic        = selectedTopic && group
-    ? group.topics?.find(t => t.slug === selectedTopic)
-    : null;
+  const topic = selectedTopic && group
+  ? (() => {
+      // Check direct match first
+      const direct = group.topics?.find(t => t.slug === selectedTopic);
+      if (direct) return direct;
+
+      // Check if it's a sub-topic
+      const parentSlug = selectedTopic.split("/")[0];
+      const parent = group.topics?.find(t => t.slug === parentSlug);
+      if (parent?.subTopics) {
+        const subSlug = selectedTopic.split("/")[1];
+        const sub = parent.subTopics.find(s => s.slug === subSlug);
+        if (sub) return { ...sub, name: `${parent.name.replace("S2: ", "")}: ${sub.name}` };
+      }
+      return null;
+    })()
+  : null;
 
   /* dropdown display */
   const subjectItems        = noteSubjects.map(s => `${s.name} — ${s.code}`);
@@ -351,26 +397,61 @@ export default function NotesPage() {
               </div>
 
               {/* ── Section 2 ── */}
-              <div className="flex flex-col gap-2">
-                <h3 className="font-heading text-sm font-bold opacity-40 mb-2 tracking-widest uppercase">
-                  Section 2
-                </h3>
-                {group.topics
-                  ?.filter((t) => t.slug.startsWith("s2-"))
-                  .map((t) => (
-                    <RowBtn
-                      key={t.slug}
-                      $active={selectedTopic === t.slug}
-                      data-active={selectedTopic === t.slug || undefined}
-                      onClick={() => setSelectedTopic(t.slug)}
-                    >
-                      <span className="font-heading text-sm font-semibold tracking-wide">
-                        {t.name.replace("S2: ", "")}
-                      </span>
-                      <span className="font-body text-xs opacity-40">→</span>
-                    </RowBtn>
-                  ))}
-              </div>
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-heading text-sm font-bold opacity-40 mb-2 tracking-widest uppercase">
+                    Section 2
+                  </h3>
+                  {group.topics
+                    ?.filter((t) => t.slug.startsWith("s2-"))
+                    .map((t) => (
+                      <div key={t.slug} className="flex flex-col gap-1">
+                        {/* Main button — folder or topic */}
+                        <RowBtn
+                          $active={selectedTopic === t.slug && !t.isFolder}
+                          data-active={selectedTopic === t.slug && !t.isFolder ? true : undefined}
+                          onClick={() => {
+                            console.log("Clicked:", t.slug, "isFolder:", t.isFolder);
+                            if (t.isFolder) {
+                              // Toggle folder expand/collapse
+                              setExpandedFolder(expandedFolder === t.slug ? null : t.slug);
+                              setSelectedTopic(null); // clear any selected topic
+                            } else {
+                              // Regular topic — load content
+                              setSelectedTopic(t.slug);
+                              setExpandedFolder(null); // collapse any open folder
+                            }
+                          }}
+                        >
+                          <span className="font-heading text-sm font-semibold tracking-wide">
+                            {t.name.replace("S2: ", "")}
+                          </span>
+                          <span className="font-body text-xs opacity-40">
+                            {t.isFolder ? (expandedFolder === t.slug ? "−" : "+") : "→"}
+                          </span>
+                        </RowBtn>
+
+                        {/* Sub-topics — only show if this folder is expanded */}
+                        {t.isFolder && expandedFolder === t.slug && (
+                          <div className="flex flex-col gap-1 ml-4 pl-3 border-l border-[var(--divider)]">
+                            {t.subTopics.map((sub) => (
+                              <RowBtn
+                                key={sub.slug}
+                                $active={selectedTopic === `${t.slug}/${sub.slug}`}
+                                data-active={selectedTopic === `${t.slug}/${sub.slug}` || undefined}
+                                onClick={() => setSelectedTopic(`${t.slug}/${sub.slug}`)}
+                                style={{ height: "40px" }}
+                              >
+                                <span className="font-heading text-xs font-medium tracking-wide opacity-80">
+                                  {sub.name}
+                                </span>
+                                <span className="font-body text-xs opacity-40">→</span>
+                              </RowBtn>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                </div>
 
               {/* ── Section 3 ── */}
               <div className="flex flex-col gap-2">

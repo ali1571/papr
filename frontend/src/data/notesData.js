@@ -21,7 +21,17 @@ export const notesData = {
           { slug: "s1-sir-syed-ahmed-khan", name: "S1: Sir Syed Ahmed Khan" },
           { slug: "s1-languages", name: "S1: Languages" },
           { slug: "s2-4mark-q", name: "S2: 4 Mark Questions" },
-          { slug: "s2-1903-1916", name: "S2: 1903–1916" },
+          { slug: "s2-1903-1916", name: "S2: 1903–1916",
+            isFolder: true,
+            subTopics: [
+                { slug: "partition-of-bengal", name: "Partition of Bengal" },
+                { slug: "simla-deputation", name: "Simla Deputation" },
+                { slug: "all-india-muslim-league", name: "All-India Muslim League" },
+                { slug: "morley-minto-reform", name: "Morley-Minto Reform 1909" },
+                { slug: "reversal-partition-bengal", name: "Reversal of Partition of Bengal 1911" },
+                { slug: "lucknow-pact", name: "Lucknow Pact 1916" },
+            ]
+          },
           { slug: "s2-1919-1929", name: "S2: 1919–1929" },
           { slug: "s2-1930-1939", name: "S2: 1930–1939" },
           { slug: "s2-1940-1947", name: "S2: 1940–1947" },

@@ -1,6 +1,9 @@
 // papersALevel.js -> API layer for fetching A-Level papers (separate Supabase DB)
 
 import { createClient } from '@supabase/supabase-js'
+import { rewriteUrl } from './cdn'
+
+
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ALEVELS_URL,
@@ -28,7 +31,7 @@ function transformToNested(allFiles) {
       subjectObj.sessions[session] ??= { papers: {} }
       subjectObj.sessions[session].papers[paper] ??= { variants: {} }
       subjectObj.sessions[session].papers[paper].variants[variant] ??= { doc_types: {} }
-      subjectObj.sessions[session].papers[paper].variants[variant].doc_types[doc_type] = file_url
+      subjectObj.sessions[session].papers[paper].variants[variant].doc_types[doc_type] = rewriteUrl(file_url)
     }
 
     // Sort doc_types: qp → ms → in

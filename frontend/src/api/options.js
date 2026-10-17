@@ -10,6 +10,7 @@ export const subjects = [
     "Computer Science",
     "Economics",
     "History",
+    "Biology",
     "ADDING BAAKI SUBS BHI WAITTT"
 ];
 
@@ -22,10 +23,11 @@ export const subjectCodes = {
     "Islamiat": "2058",
     "pkst": "2059",
     "History": "2147",
+    "Biology": "5090"
 };
 
 // Years per subject (placeholder; reuse same years for now)
-const defaultYears = [2025,2024, 2023, 2022, 2021, 2020, 2019, 2018];
+const defaultYears = [2026,2025,2024, 2023, 2022, 2021, 2020, 2019, 2018];
 
 export const yearsBySubject = {
     Mathematics: defaultYears,
@@ -41,4 +43,5 @@ export const yearsBySubject = {
     Urdu: defaultYears,
     "pkst": defaultYears,
     "History": defaultYears,
+    "Biology": defaultYears,
 };
