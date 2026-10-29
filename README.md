@@ -11,7 +11,6 @@ Actively used by students
 - Browse past papers by level, subject, year, session (summer or winter), paper and variant
 - Opens the question paper and mark scheme next to each other, so you never switch tabs
 - Each document can be opened full screen or downloaded
-- Built-in exam timer on the paper view
 - Notes section for History, Islamiat, Pakistan Studies, Geography and Computer Science, written by the developer
 - Contact page and a feedback form that students can use anonymously
 - Works on phones and desktops
