@@ -1,6 +1,6 @@
 const CDN_MAP = {
     [import.meta.env.VITE_SUPABASE_URL]: import.meta.env.VITE_CDN_OLEVELS_URL,
-    [import.meta.env.VITE_SUPABASE_ALEVEL_URL]: import.meta.env.VITE_CDN_ALEVELS_URL,}
+    [import.meta.env.VITE_SUPABASE_ALEVELS_URL]: import.meta.env.VITE_CDN_ALEVELS_URL,}
 
 export function rewriteUrl(url){
     if (!url) return url
