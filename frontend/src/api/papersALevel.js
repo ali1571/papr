@@ -1,18 +1,17 @@
-// papersALevel.js -> API layer for fetching A-Level papers (separate Supabase DB)
-
 import { createClient } from '@supabase/supabase-js'
 import { rewriteUrl } from './cdn'
 
-
-
+// Initialize utilizing the specific A-level project URL configuration
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ALEVELS_URL,
-  import.meta.env.VITE_SUPABASE_ALEVELS_ANON_KEY
+  import.meta.env.VITE_SUPABASE_ALEVELS_ANON_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY
 )
-// In papersALevel.js
+
 console.log("A-LEVEL DB CONNECTED TO:", import.meta.env.VITE_SUPABASE_ALEVELS_URL);
 
 function transformToNested(allFiles) {
+
+  console.log("cooking file url")
   const result = { subjects: [] }
   const subjectGroups = {}
 
@@ -28,10 +27,21 @@ function transformToNested(allFiles) {
 
     for (const file of files) {
       const { session, paper, variant, doc_type, file_url } = file
-      subjectObj.sessions[session] ??= { papers: {} }
-      subjectObj.sessions[session].papers[paper] ??= { variants: {} }
-      subjectObj.sessions[session].papers[paper].variants[variant] ??= { doc_types: {} }
-      subjectObj.sessions[session].papers[paper].variants[variant].doc_types[doc_type] = rewriteUrl(file_url)
+
+      console.log(file)
+
+      // Standardize session fields dynamically (handles "summer" or "s" -> "s")
+      let safeSession = String(session || '').trim().toLowerCase();
+      if (safeSession.startsWith('s') || safeSession.includes('summer')) safeSession = 's';
+      if (safeSession.startsWith('w') || safeSession.includes('winter')) safeSession = 'w';
+      if (safeSession.startsWith('m') || safeSession.includes('march')) safeSession = 'm';
+
+      if (!safeSession) continue;
+
+      subjectObj.sessions[safeSession] ??= { papers: {} }
+      subjectObj.sessions[safeSession].papers[paper] ??= { variants: {} }
+      subjectObj.sessions[safeSession].papers[paper].variants[variant] ??= { doc_types: {} }
+      subjectObj.sessions[safeSession].papers[paper].variants[variant].doc_types[doc_type] = rewriteUrl(file_url)
     }
 
     // Sort doc_types: qp → ms → in
@@ -51,15 +61,36 @@ function transformToNested(allFiles) {
 }
 
 async function getPapers(subject, year) {
+  // 1. Force the year to be a strict primitive numeric integer
+  const cleanYear = parseInt(year, 10);
+  const cleanSubject = String(subject || '').trim();
+
+  // 2. Log out the diagnostic breakdown directly to pinpoint runtime types
+  console.log("--- DEBUG PARAMETERS FOR A-LEVEL QUERY ---", {
+    receivedSubject: subject,
+    receivedYear: year,
+    typeOfReceivedYear: typeof year,
+    queryingWithYear: cleanYear,
+    typeOfQueryingWithYear: typeof cleanYear
+  });
+
+  // 3. Fire the query with the normalized variables
   const { data, error } = await supabase
     .from('past-papers')
     .select('*')
-    .eq('subject_name', subject)
-    .eq('year', year)
+    .eq('subject_name', cleanSubject)
+    .eq('year', cleanYear) // Ensured numeric int4 match
 
-  if (error) throw error
-  return transformToNested(data)
+  console.log("--- DATABASE API RESULTS RECEIVED ---", data);
+
+  if (error) {
+    console.error("Database execution error stack:", error);
+    throw error;
+  }
+
+  return transformToNested(data || []);
 }
+
 
 const flattenSession = (sessionObj) => {
   if (!sessionObj?.papers) return []
@@ -77,11 +108,12 @@ export async function fetchPapersALevel(subject, year) {
   const apiData = await getPapers(subject, year)
   const node = apiData.subjects?.[0]
 
-  if (!node) return { s: [], w: [], meta: null, error: 'No data found' }
+  if (!node) return { s: [], w: [], m: [], meta: null, error: 'No data found' }
 
   return {
     s: flattenSession(node.sessions?.s),
     w: flattenSession(node.sessions?.w),
+    m: flattenSession(node.sessions?.m),
     meta: {
       subject_name: node.subject_name,
       subject_code: node.subject_code,

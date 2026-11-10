@@ -14,6 +14,8 @@ console.log("O-LEVEL DB CONNECTED TO:", import.meta.env.VITE_SUPABASE_URL);
 
 
 function transformToNested(allFiles) {
+
+  console.log("cooking file url ol")
   const result = { subjects: [] }
   const subjectGroups = {}
 
@@ -29,6 +31,8 @@ function transformToNested(allFiles) {
 
     for (const file of files) {
       const { session, paper, variant, doc_type, file_url } = file
+
+      console.log(file)
       subjectObj.sessions[session] ??= { papers: {} }
       subjectObj.sessions[session].papers[paper] ??= { variants: {} }
       subjectObj.sessions[session].papers[paper].variants[variant] ??= { doc_types: {} }
